@@ -17,10 +17,13 @@ public class ContributorCreateRequest {
     @NotEmpty
     private String username;
 
+    private String avatarUrl;
+
     public User toUser() {
         return User.builder()
             .githubIdentifier(githubIdentifier)
             .username(username)
+            .avatarUrl(avatarUrl)
             .build();
     }
 }

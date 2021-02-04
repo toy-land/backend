@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 
 import com.openhack.toyland.domain.BaseTimeEntity;
@@ -26,10 +27,14 @@ public class User extends BaseTimeEntity {
     @NotNull
     private String username;
 
+    @Lob
+    private String avatarUrl;
+
     @Builder
-    public User(Long githubIdentifier, String username) {
+    public User(Long githubIdentifier, String username, String avatarUrl) {
         this.id = null;
         this.githubIdentifier = githubIdentifier;
         this.username = username;
+        this.avatarUrl = avatarUrl;
     }
 }
