@@ -1,5 +1,7 @@
 package com.openhack.toyland.domain.user;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,5 +38,9 @@ public class User extends BaseTimeEntity {
         this.githubIdentifier = githubIdentifier;
         this.username = username;
         this.avatarUrl = avatarUrl;
+    }
+
+    public boolean isSameGithubIdentifier(User user) {
+        return githubIdentifier.equals(user.getGithubIdentifier());
     }
 }
