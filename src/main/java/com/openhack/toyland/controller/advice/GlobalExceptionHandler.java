@@ -70,9 +70,9 @@ public class GlobalExceptionHandler {
 	}
 
 	@ExceptionHandler(value = EntityNotFoundException.class)
-	public ResponseEntity<?> handleEntityNotFoundException() {
-		log.error("Entity Not Found exception");
-		ErrorResponse response = new ErrorResponse("entity를 찾을 수 없습니다");
+	public ResponseEntity<?> handleEntityNotFoundException(EntityNotFoundException e) {
+		log.error("Entity Not Found exception" + e.getMessage());
+		ErrorResponse response = new ErrorResponse(e.getMessage());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
 	}
 }
