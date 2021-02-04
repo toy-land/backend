@@ -21,7 +21,7 @@ public class ToyCreateService {
 
     @Transactional
     public Long create(ToyCreateRequest request) {
-        if (organizationRepository.existsById(request.getOrganizationId())) {
+        if (!organizationRepository.existsById(request.getOrganizationId())) {
             throw new EntityNotFoundException("해당되는 소속이 없습니다.");
         }
 
