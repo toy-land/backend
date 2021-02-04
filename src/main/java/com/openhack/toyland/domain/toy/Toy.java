@@ -49,8 +49,8 @@ public class Toy extends BaseTimeEntity {
     private Integer organizationId;
 
     @Enumerated(EnumType.STRING)
-    private Category category;
+    private com.openhack.toyland.domain.toy.Category category;
 
     @Enumerated(EnumType.STRING)
-    private Period period;
+    private com.openhack.toyland.domain.toy.Period period;
 }
