@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -40,9 +41,20 @@ public class ToyController {
 
 	@GetMapping
 	public ResponseEntity<List<ToyResponse>> findAll(
-		@PageableDefault(size = 6, sort = "updated_date", direction = Sort.Direction.DESC) Pageable pageable) {
-		log.info(pageable.getOffset() + " " + pageable.toString());
-		List<ToyResponse> responses = service.findAll(pageable);
+		@PageableDefault(size = 6, sort = "created_date", direction = Sort.Direction.DESC) Pageable pageable,
+		@RequestParam(required = false) List<Long> organization,
+		@RequestParam(required = false) List<Long> skill,
+		@RequestParam(required = false) List<String> category,
+		@RequestParam(required = false) List<String> period,
+		@RequestParam(required = false) List<String> search
+	) {
+		log.info("[get toy condition] - " + pageable.toString());
+		log.info("[get toy condition] - " + organization);
+		log.info("[get toy condition] - " + skill);
+		log.info("[get toy condition] - " + category);
+		log.info("[get toy condition] - " + period);
+		log.info("[get toy condition] - " + search);
+		List<ToyResponse> responses = service.findAll(pageable, organization, skill, category, period, search);
 		log.info(responses.toString());
 		return ResponseEntity.ok(responses);
 	}
