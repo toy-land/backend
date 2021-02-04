@@ -65,7 +65,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(value = UnAuthorizedEventException.class)
 	public ResponseEntity<?> handleUnAuthorizedEventException() {
 		log.error("Unauthorized event exception");
-		ErrorResponse response = new ErrorResponse("서버 내부 오류");
+		ErrorResponse response = new ErrorResponse("패스워드 오류");
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 	}
 
