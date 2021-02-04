@@ -15,6 +15,7 @@ public class ToyDetailResponse {
     private Long id;
     private String title;
     private String description;
+    private String readme;
     private String category;
     private String logoUrl;
     private LocalDateTime active;
@@ -30,6 +31,7 @@ public class ToyDetailResponse {
         this.id = toy.getId();
         this.title = toy.getTitle();
         this.description = toy.getDescription();
+        this.readme = toy.getReadme();
         this.category = toy.getCategory().toString();
         this.logoUrl = toy.getLogoUrl();
         // TODO: 2021/02/04 아래는 하드 코딩

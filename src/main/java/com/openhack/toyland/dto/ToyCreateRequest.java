@@ -27,6 +27,8 @@ public class ToyCreateRequest {
     @NotEmpty
     private String description;
 
+    private String readme;
+
     private String logoUrl;
 
     @NotEmpty
@@ -57,6 +59,7 @@ public class ToyCreateRequest {
             .title(title)
             .password(password)
             .description(description)
+            .readme(readme)
             .logoUrl(logoUrl)
             .githubLink(githubLink)
             .serviceLink(serviceLink)
