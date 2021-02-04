@@ -23,4 +23,10 @@ public class TechStack {
 
     @NotNull
     private Long skillId;
+
+    public TechStack(Long toyId, Long skillId) {
+        this.id = null;
+        this.toyId = toyId;
+        this.skillId = skillId;
+    }
 }
