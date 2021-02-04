@@ -6,12 +6,9 @@ import lombok.Getter;
 @Getter
 public class SkillDropDownResponse {
 
-	private String message;
-
 	private List<SkillResponse> data;
 
-	public SkillDropDownResponse(String message, List<SkillResponse> data) {
-		this.message = message;
+	public SkillDropDownResponse(List<SkillResponse> data) {
 		this.data = data;
 	}
 }

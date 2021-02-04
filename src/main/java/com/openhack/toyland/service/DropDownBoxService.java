@@ -9,20 +9,15 @@ import com.openhack.toyland.domain.toy.Category;
 import com.openhack.toyland.domain.toy.Period;
 import com.openhack.toyland.dto.OrganizationResponse;
 import com.openhack.toyland.dto.SkillResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class DropDownBoxService {
 
-	private SkillRepository skillRepository;
-	private OrganizationRepository organizationRepository;
-
-	@Autowired
-	DropDownBoxService(SkillRepository skillRepository, OrganizationRepository organizationRepository) {
-		this.skillRepository = skillRepository;
-		this.organizationRepository = organizationRepository;
-	}
+	private final SkillRepository skillRepository;
+	private final OrganizationRepository organizationRepository;
 
 	public List<SkillResponse> getSkills() {
 
