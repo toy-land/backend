@@ -68,13 +68,13 @@ public class ToyCreateService {
         Map<Boolean, List<User>> savedOrNot = users.stream()
             .collect(Collectors.groupingBy(it -> userGithubIdentifiers.contains(it.getGithubIdentifier())));
 
-        List<User> notSaved = savedOrNot.get(false);
+        List<User> notSaved = savedOrNot.getOrDefault(false, new ArrayList<>());
         List<Long> newlySavedIds = userRepository.saveAll(notSaved)
             .stream()
             .map(User::getId)
             .collect(Collectors.toList());
 
-        List<User> savedUsers = savedOrNot.get(true);
+        List<User> savedUsers = savedOrNot.getOrDefault(true, new ArrayList<>());
         List<Long> savedIds = update(all, savedUsers);
 
         return Stream.of(newlySavedIds, savedIds)
