@@ -23,6 +23,9 @@ public class Toy extends BaseTimeEntity {
     private Long id;
 
     @NotNull
+    private Long githubIdentifier;
+
+    @NotNull
     private String title;
 
     @NotNull
@@ -36,7 +39,12 @@ public class Toy extends BaseTimeEntity {
     private String logoUrl;
 
     @Lob
-    private String link;
+    private String githubLink;
+
+    @Lob
+    private String serviceLink;
+
+    private String email;
 
     private Integer organizationId;
 
