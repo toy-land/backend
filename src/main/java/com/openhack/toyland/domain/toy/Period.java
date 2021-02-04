@@ -1,4 +1,4 @@
-package com.openhack.toyland.toy;
+package com.openhack.toyland.domain.toy;
 
 public enum Period {
     LESS_THAN_A_DAY,

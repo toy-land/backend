@@ -1,4 +1,4 @@
-package com.openhack.toyland.skill;
+package com.openhack.toyland.domain.user;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class TechStack {
+public class Contributor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,5 +22,5 @@ public class TechStack {
     private Long toyId;
 
     @NotNull
-    private Long skillId;
+    private Long userId;
 }

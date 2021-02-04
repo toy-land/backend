@@ -1,4 +1,6 @@
-package com.openhack.toyland.user;
+package com.openhack.toyland.domain;
+
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,14 +15,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Contributor {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Maintenance extends BaseTimeEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @NotNull
-    private Long toyId;
+	@NotNull
+	private Long toyId;
 
-    @NotNull
-    private Long userId;
+	private Boolean healthCheck;
+
+	private LocalDateTime active;
 }

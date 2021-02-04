@@ -1,4 +1,4 @@
-package com.openhack.toyland;
+package com.openhack.toyland.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
