@@ -7,10 +7,10 @@ import lombok.Getter;
 public class EnumDropDownResponse {
 	private String message;
 
-	private List<String> data;
+	private List<String> reposponse;
 
-	public EnumDropDownResponse(String message, List<String> data) {
+	public EnumDropDownResponse(String message, List<String> reposponse) {
 		this.message = message;
-		this.data = data;
+		this.reposponse = reposponse;
 	}
 }

@@ -4,13 +4,13 @@ import com.openhack.toyland.domain.Organization;
 import lombok.Getter;
 
 @Getter
-public class OrganizationData {
+public class OrganizationResponse {
 
 	private long id;
 
 	private String name;
 
-	public OrganizationData(Organization organization) {
+	public OrganizationResponse(Organization organization) {
 		this.id = organization.getId();
 		this.name = organization.getName();
 	}

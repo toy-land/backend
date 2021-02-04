@@ -8,9 +8,9 @@ public class SkillDropDownResponse {
 
 	private String message;
 
-	private List<SkillData> data;
+	private List<SkillResponse> data;
 
-	public SkillDropDownResponse(String message, List<SkillData> data) {
+	public SkillDropDownResponse(String message, List<SkillResponse> data) {
 		this.message = message;
 		this.data = data;
 	}

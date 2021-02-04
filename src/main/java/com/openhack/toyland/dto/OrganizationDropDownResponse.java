@@ -7,10 +7,10 @@ import lombok.Getter;
 public class OrganizationDropDownResponse {
 	private String message;
 
-	private List<OrganizationData> data;
+	private List<OrganizationResponse> reposponse;
 
-	public OrganizationDropDownResponse(String message, List<OrganizationData> data) {
+	public OrganizationDropDownResponse(String message, List<OrganizationResponse> reposponse) {
 		this.message = message;
-		this.data = data;
+		this.reposponse = reposponse;
 	}
 }

@@ -7,8 +7,8 @@ import com.openhack.toyland.domain.OrganizationRepository;
 import com.openhack.toyland.domain.skill.SkillRepository;
 import com.openhack.toyland.domain.toy.Category;
 import com.openhack.toyland.domain.toy.Period;
-import com.openhack.toyland.dto.OrganizationData;
-import com.openhack.toyland.dto.SkillData;
+import com.openhack.toyland.dto.OrganizationResponse;
+import com.openhack.toyland.dto.SkillResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +24,14 @@ public class DropDownBoxService {
 		this.organizationRepository = organizationRepository;
 	}
 
-	public List<SkillData> getSkills() {
+	public List<SkillResponse> getSkills() {
 
-		return skillRepository.findAll().stream().map(SkillData::new).collect(Collectors.toList());
+		return skillRepository.findAll().stream().map(SkillResponse::new).collect(Collectors.toList());
 	}
 
-	public List<OrganizationData> getOrganizations() {
+	public List<OrganizationResponse> getOrganizations() {
 
-		return organizationRepository.findAll().stream().map(OrganizationData::new).collect(Collectors.toList());
+		return organizationRepository.findAll().stream().map(OrganizationResponse::new).collect(Collectors.toList());
 	}
 
 	public List<String> getCategories() {

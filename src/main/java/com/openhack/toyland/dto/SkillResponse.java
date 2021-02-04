@@ -4,13 +4,13 @@ import com.openhack.toyland.domain.skill.Skill;
 import lombok.Getter;
 
 @Getter
-public class SkillData {
+public class SkillResponse {
 
 	private long id;
 
 	private String name;
 
-	public SkillData(Skill skill) {
+	public SkillResponse(Skill skill) {
 		this.id = skill.getId();
 		this.name = skill.getName();
 	}
