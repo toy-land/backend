@@ -1,4 +1,4 @@
-package com.openhack.toyland.toy;
+package com.openhack.toyland.domain.toy;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 
-import com.openhack.toyland.BaseTimeEntity;
+import com.openhack.toyland.domain.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

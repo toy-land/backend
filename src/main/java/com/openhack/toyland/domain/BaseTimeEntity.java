@@ -1,4 +1,4 @@
-package com.openhack.toyland;
+package com.openhack.toyland.domain;
 
 import java.time.LocalDateTime;
 

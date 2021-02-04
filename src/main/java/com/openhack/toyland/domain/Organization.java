@@ -1,4 +1,4 @@
-package com.openhack.toyland;
+package com.openhack.toyland.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
