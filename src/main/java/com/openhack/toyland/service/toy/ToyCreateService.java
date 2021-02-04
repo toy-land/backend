@@ -11,17 +11,13 @@ import com.openhack.toyland.domain.toy.ToyRepository;
 import com.openhack.toyland.domain.user.User;
 import com.openhack.toyland.dto.ToyCreateRequest;
 import com.openhack.toyland.exception.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Service
 public class ToyCreateService {
     private final ToyRepository toyRepository;
     private final OrganizationRepository organizationRepository;
-
-    public ToyCreateService(ToyRepository toyRepository,
-        OrganizationRepository organizationRepository) {
-        this.toyRepository = toyRepository;
-        this.organizationRepository = organizationRepository;
-    }
 
     @Transactional
     public Long create(ToyCreateRequest request) {
