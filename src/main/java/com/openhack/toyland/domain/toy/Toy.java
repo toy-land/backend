@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 import com.openhack.toyland.domain.BaseTimeEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -38,6 +39,7 @@ public class Toy extends BaseTimeEntity {
     @Lob
     private String logoUrl;
 
+    @NotNull
     @Lob
     private String githubLink;
 
@@ -46,11 +48,28 @@ public class Toy extends BaseTimeEntity {
 
     private String email;
 
-    private Integer organizationId;
+    private Long organizationId;
 
     @Enumerated(EnumType.STRING)
-    private Category category;
+    private com.openhack.toyland.domain.toy.Category category;
 
     @Enumerated(EnumType.STRING)
-    private Period period;
+    private com.openhack.toyland.domain.toy.Period period;
+
+    @Builder
+    public Toy(Long githubIdentifier, String title, String password, String description, String logoUrl,
+        String githubLink, String serviceLink, String email, Long organizationId, String category, String period) {
+        this.id = null;
+        this.githubIdentifier = githubIdentifier;
+        this.title = title;
+        this.password = password;
+        this.description = description;
+        this.logoUrl = logoUrl;
+        this.githubLink = githubLink;
+        this.serviceLink = serviceLink;
+        this.email = email;
+        this.organizationId = organizationId;
+        this.category = Category.valueOf(category);
+        this.period = Period.valueOf(period);
+    }
 }
