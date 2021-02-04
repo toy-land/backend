@@ -1,9 +1,9 @@
 package com.openhack.toyland.dto;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
+import com.openhack.toyland.domain.Organization;
 import com.openhack.toyland.domain.toy.Toy;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -15,31 +15,33 @@ public class ToyDetailResponse {
     private Long id;
     private String title;
     private String description;
+    private String readme;
     private String category;
     private String logoUrl;
     private LocalDateTime active;
     private boolean healthCheck;
-    private List<String> contributors;
+    private List<UserResponse> contributors;
     private String organization;
     private List<String> skills;
     private String period;
     private String githubLink;
     private String serviceLink;
 
-    public ToyDetailResponse(Toy toy) {
+    public ToyDetailResponse(Toy toy, Organization organization, List<String> skillNames, List<UserResponse> users) {
         this.id = toy.getId();
         this.title = toy.getTitle();
         this.description = toy.getDescription();
+        this.readme = toy.getReadme();
         this.category = toy.getCategory().toString();
         this.logoUrl = toy.getLogoUrl();
-        // TODO: 2021/02/04 아래는 하드 코딩
+        // TODO: 2021/02/04 아래 두개는 하드 코딩
         this.active = LocalDateTime.parse("2021-02-04T16:15:30");
         this.healthCheck = true;
-        this.contributors = Arrays.asList("toneyparky", "tongkiparky", "sy9292");
-        this.organization = "SOPT";
-        this.skills = Arrays.asList("react", "Java", "spring");
-        this.period = "LESS_THAN_THREE_DAYS";
-        this.githubLink = "https://www.github.com/toneyparky/repository";
-        this.serviceLink = "https://www.cocktailpick.com";
+        this.contributors = users;
+        this.organization = organization.getName();
+        this.skills = skillNames;
+        this.period = toy.getPeriod().toString();
+        this.githubLink = toy.getGithubLink();
+        this.serviceLink = toy.getServiceLink();
     }
 }

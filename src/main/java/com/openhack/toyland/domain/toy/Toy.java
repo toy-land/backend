@@ -37,6 +37,9 @@ public class Toy extends BaseTimeEntity {
     private String description;
 
     @Lob
+    private String readme;
+
+    @Lob
     private String logoUrl;
 
     @NotNull
@@ -57,13 +60,14 @@ public class Toy extends BaseTimeEntity {
     private com.openhack.toyland.domain.toy.Period period;
 
     @Builder
-    public Toy(Long githubIdentifier, String title, String password, String description, String logoUrl,
+    public Toy(Long githubIdentifier, String title, String password, String description, String readme, String logoUrl,
         String githubLink, String serviceLink, String email, Long organizationId, String category, String period) {
         this.id = null;
         this.githubIdentifier = githubIdentifier;
         this.title = title;
         this.password = password;
         this.description = description;
+        this.readme = readme;
         this.logoUrl = logoUrl;
         this.githubLink = githubLink;
         this.serviceLink = serviceLink;
