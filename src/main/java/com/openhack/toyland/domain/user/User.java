@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import com.openhack.toyland.domain.BaseTimeEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,4 +25,11 @@ public class User extends BaseTimeEntity {
 
     @NotNull
     private String username;
+
+    @Builder
+    public User(Long githubIdentifier, String username) {
+        this.id = null;
+        this.githubIdentifier = githubIdentifier;
+        this.username = username;
+    }
 }
