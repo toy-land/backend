@@ -1,6 +1,7 @@
 package com.openhack.toyland.controller.advice;
 
 import com.openhack.toyland.dto.ErrorResponse;
+import com.openhack.toyland.exception.EntityNotFoundException;
 import com.openhack.toyland.exception.InvalidRequestBodyException;
 import com.openhack.toyland.exception.UnAuthorizedEventException;
 import lombok.extern.slf4j.Slf4j;
@@ -66,5 +67,12 @@ public class GlobalExceptionHandler {
 		log.error("Unauthorized event exception");
 		ErrorResponse response = new ErrorResponse("서버 내부 오류");
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+	}
+
+	@ExceptionHandler(value = EntityNotFoundException.class)
+	public ResponseEntity<?> handleEntityNotFoundException() {
+		log.error("Entity Not Found exception");
+		ErrorResponse response = new ErrorResponse("entity를 찾을 수 없습니다");
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
 	}
 }
