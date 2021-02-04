@@ -23,4 +23,10 @@ public class Contributor {
 
     @NotNull
     private Long userId;
+
+    public Contributor(@NotNull Long toyId, @NotNull Long userId) {
+        this.id = null;
+        this.toyId = toyId;
+        this.userId = userId;
+    }
 }

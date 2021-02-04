@@ -49,7 +49,7 @@ public class ToyCreateRequest {
     private List<ContributorCreateRequest> contributors;
 
     @NotEmpty
-    private List<Long> techStacks;
+    private List<Long> techStackIds;
 
     public Toy toEntity() {
         return Toy.builder()
