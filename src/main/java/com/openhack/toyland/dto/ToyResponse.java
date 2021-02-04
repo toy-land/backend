@@ -13,6 +13,7 @@ public class ToyResponse {
     private String description;
     private String logoUrl;
     private String category;
+    // TODO: 2021/02/04 active 추가하기 
 
     public ToyResponse(Toy toy) {
         this.id = toy.getId();
