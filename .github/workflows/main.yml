@@ -54,5 +54,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       
-      - name: Build the Docker image
-        run: docker build --tag ${{secrets.DOCKER_USERNAME}}/toy-land-back:$(date +%s) .
+      - name: Build and push the Docker image
+        run: |
+          docker build --tag ${{secrets.DOCKER_USERNAME}}/toy-land-back:$(date +%s) .
+          docker push ${{secrets.DOCKER_USERNAME}}/toy-land-back:$(date +%s)
