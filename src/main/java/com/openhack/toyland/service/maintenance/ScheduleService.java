@@ -32,7 +32,7 @@ public class ScheduleService {
             ToyDetailResponse toy = toyService.findById(maintenance.getToyId());
             boolean isHealthy = apiParser.checkHealth(toy.getServiceLink());
             LocalDateTime active = apiParser.fetchActive(toy.getGithubLink(), toy.getActive());
-
+            log.warn(active.toString());
             Maintenance updated = Maintenance.builder()
                 .id(maintenance.getId())
                 .toyId(maintenance.getToyId())

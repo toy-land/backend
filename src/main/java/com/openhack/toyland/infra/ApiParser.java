@@ -1,15 +1,20 @@
 package com.openhack.toyland.infra;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.openhack.toyland.exception.JsonParsingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,17 +38,29 @@ public class ApiParser {
         String repositoryEndpoint = githubLink.replace("https://github.com/", "");
         String actualUrl = "https://api.github.com/repos/" + repositoryEndpoint;
 
+        HttpHeaders httpHeaders = new HttpHeaders();
+        String apiToken = System.getenv("API_TOKEN");
+        log.error(apiToken);
+        httpHeaders.setBearerAuth(apiToken);
+        HttpEntity entity = new HttpEntity(httpHeaders);
+
         ObjectNode jsonNodes = null;
         try {
-            ResponseEntity<String> response = restTemplate.getForEntity(actualUrl, String.class);
+            ResponseEntity<String> response = restTemplate.exchange(actualUrl, HttpMethod.GET, entity, String.class);
             jsonNodes = new ObjectMapper().readValue(response.getBody(), ObjectNode.class);
-        } catch (JsonProcessingException e) {
-            throw new JsonParsingException("해당 링크의 Json을 파싱할 수 없습니다.");
+        } catch (JsonProcessingException | HttpClientErrorException e) {
+            log.error("[Fetch not working] " + e.getMessage());
+            return active;
         }
 
+        log.info("[Fetch working]");
         if (jsonNodes.has("pushed_at")) {
-            log.warn("[fetch link] " + jsonNodes.get("pushed_at").asText());
-            return LocalDateTime.parse(jsonNodes.get("pushed_at").asText());
+            String pushedAt = jsonNodes.get("pushed_at").asText();
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.KOREA);
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.000000", Locale.KOREA);
+            LocalDateTime date = LocalDateTime.parse(pushedAt, inputFormatter);
+            String formattedDate = outputFormatter.format(date);
+            return LocalDateTime.parse(formattedDate, outputFormatter);
         }
         return active;
     }
