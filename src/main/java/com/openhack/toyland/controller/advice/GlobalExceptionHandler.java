@@ -1,6 +1,7 @@
 package com.openhack.toyland.controller.advice;
 
 import com.openhack.toyland.dto.ErrorResponse;
+import com.openhack.toyland.exception.DuplicatedEntityException;
 import com.openhack.toyland.exception.EntityNotFoundException;
 import com.openhack.toyland.exception.InvalidRequestBodyException;
 import com.openhack.toyland.exception.UnAuthorizedEventException;
@@ -55,13 +56,6 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 	}
 
-	@ExceptionHandler(Exception.class)
-	protected ResponseEntity<ErrorResponse> handleException(Exception e) {
-		log.error(e.getMessage(), e);
-		ErrorResponse response = new ErrorResponse("서버 내부 오류");
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-	}
-
 	@ExceptionHandler(value = UnAuthorizedEventException.class)
 	public ResponseEntity<?> handleUnAuthorizedEventException() {
 		log.error("Unauthorized event exception");
@@ -74,5 +68,19 @@ public class GlobalExceptionHandler {
 		log.error("Entity Not Found exception" + e.getMessage());
 		ErrorResponse response = new ErrorResponse(e.getMessage());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+	}
+
+	@ExceptionHandler(value = DuplicatedEntityException.class)
+	public ResponseEntity<?> handleEntityNotFoundException(DuplicatedEntityException e) {
+		log.error("Duplicated Entity exception" + e.getMessage());
+		ErrorResponse response = new ErrorResponse(e.getMessage());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+	}
+
+	@ExceptionHandler(Exception.class)
+	protected ResponseEntity<ErrorResponse> handleException(Exception e) {
+		log.error(e.getMessage(), e);
+		ErrorResponse response = new ErrorResponse("서버 내부 오류");
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 	}
 }
