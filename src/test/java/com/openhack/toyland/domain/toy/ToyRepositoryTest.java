@@ -23,7 +23,7 @@ class ToyRepositoryTest {
         organizationRepository.save(new Organization("SOPT"));
 
         Toy toy = new Toy(123L, "title", "password", "description", "readme", "logoUrl", "githubLink", "serviceLink",
-            "email", 1L, "AI", "LESS_THAN_A_DAY");
+            "email", 1L, "AI", "LESS_THAN_A_DAY", null);
 
         toyRepository.save(toy);
 

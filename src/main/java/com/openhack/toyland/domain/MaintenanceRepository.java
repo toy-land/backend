@@ -7,4 +7,6 @@ public interface MaintenanceRepository extends JpaRepository<Maintenance, Long> 
     boolean existsByToyId(Long toyId);
 
     Optional<Maintenance> findByToyId(Long toyId);
+
+    void deleteByToyId(Long deleteByToyId);
 }

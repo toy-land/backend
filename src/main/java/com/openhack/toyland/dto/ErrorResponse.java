@@ -1,7 +1,8 @@
 package com.openhack.toyland.dto;
 
-import org.springframework.http.HttpStatus;
+import lombok.Getter;
 
+@Getter
 public class ErrorResponse {
 
 	private String message;
