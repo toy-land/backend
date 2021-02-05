@@ -26,13 +26,16 @@ public class Maintenance extends BaseTimeEntity {
 
 	private Boolean healthCheck;
 
+	private Long sleepDays;
+
 	private LocalDateTime active;
 
 	@Builder
-	public Maintenance(Long id, Long toyId, Boolean healthCheck, LocalDateTime active) {
+	public Maintenance(Long id, Long toyId, Boolean healthCheck, Long sleepDays, LocalDateTime active) {
 		this.id = id;
 		this.toyId = toyId;
 		this.healthCheck = healthCheck;
+		this.sleepDays = sleepDays;
 		this.active = active;
 	}
 }

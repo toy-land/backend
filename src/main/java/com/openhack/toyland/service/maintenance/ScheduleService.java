@@ -38,6 +38,7 @@ public class ScheduleService {
                 .toyId(maintenance.getToyId())
                 .active(active)
                 .healthCheck(isHealthy)
+                .sleepDays(isHealthy ? 0 : maintenance.getSleepDays() + 1L)
                 .build();
             updates.add(updated);
         }

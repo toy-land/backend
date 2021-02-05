@@ -32,6 +32,7 @@ public class MaintenanceService {
             .toyId(toyId)
             .active(pushedAt)
             .healthCheck(isHealthy)
+            .sleepDays(isHealthy ? 0L : 1L)
             .build();
 
         repository.save(maintenance);
