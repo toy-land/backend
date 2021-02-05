@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.openhack.toyland.domain.toy.Period;
 import com.openhack.toyland.domain.toy.Toy;
 import com.openhack.toyland.domain.user.User;
 import lombok.AccessLevel;
@@ -45,7 +46,7 @@ public class ToyCreateRequest {
     private String category;
 
     @NotNull
-    private String period;
+    private Long period;
 
     private String pushedAt;
 
@@ -68,7 +69,7 @@ public class ToyCreateRequest {
             .email(email)
             .organizationId(organizationId)
             .category(category)
-            .period(period)
+            .period(Period.of(period).toString())
             .build();
     }
 
