@@ -41,4 +41,8 @@ public class MaintenanceService {
     public void updateAll(List<Maintenance> maintenances) {
         repository.saveAll(maintenances);
     }
+
+    public List<Maintenance> findBySleepDaysGreaterThan(long threshold) {
+        return repository.findBySleepDaysGreaterThan(threshold);
+    }
 }

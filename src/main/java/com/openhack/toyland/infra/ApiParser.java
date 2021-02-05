@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -24,6 +25,9 @@ import lombok.extern.slf4j.Slf4j;
 public class ApiParser {
     private final RestTemplate restTemplate;
 
+    @Value("${app.API_TOKEN}")
+    private String apiToken;
+
     public boolean checkHealth(String link) {
         ResponseEntity<String> response = null;
         try {
@@ -39,7 +43,7 @@ public class ApiParser {
         String actualUrl = "https://api.github.com/repos/" + repositoryEndpoint;
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        String apiToken = System.getenv("API_TOKEN");
+
         log.error(apiToken);
         httpHeaders.setBearerAuth(apiToken);
         HttpEntity entity = new HttpEntity(httpHeaders);

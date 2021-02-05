@@ -255,4 +255,10 @@ public class ToyService {
             .collect(Collectors.toList());
         techStackRepository.saveAll(techStacks);
     }
+
+    @Transactional(readOnly = true)
+    public Toy findEntityByIdAndEmailIsNotNull(Long id) {
+        return toyRepository.findByIdAndEmailIsNotNull(id)
+            .orElseThrow(() -> new EntityNotFoundException("toy를 찾을 수 없습니다"));
+    }
 }
