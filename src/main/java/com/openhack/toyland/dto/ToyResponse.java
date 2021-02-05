@@ -1,7 +1,10 @@
 package com.openhack.toyland.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import com.openhack.toyland.domain.Maintenance;
+import com.openhack.toyland.domain.skill.Skill;
 import com.openhack.toyland.domain.toy.Toy;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -16,14 +19,15 @@ public class ToyResponse {
     private String logoUrl;
     private String category;
     private LocalDateTime active;
+    private List<Skill> skills;
 
-    public ToyResponse(Toy toy) {
+    public ToyResponse(Toy toy, Maintenance maintenance, List<Skill> skills) {
         this.id = toy.getId();
         this.title = toy.getTitle();
         this.description = toy.getDescription();
         this.logoUrl = toy.getLogoUrl();
         this.category = toy.getCategory().toString();
-        // TODO: 2021/02/05 maintenance구현 후 active 수정
-        this.active = LocalDateTime.parse("2021-02-04T16:15:30");
+        this.active = maintenance.getActive();
+        this.skills = skills;
     }
 }
