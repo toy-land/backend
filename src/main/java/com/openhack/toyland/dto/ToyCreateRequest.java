@@ -47,6 +47,8 @@ public class ToyCreateRequest {
     @NotNull
     private String period;
 
+    private String pushedAt;
+
     @NotEmpty
     private List<ContributorCreateRequest> contributors;
 

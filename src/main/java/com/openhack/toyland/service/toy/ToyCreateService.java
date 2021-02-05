@@ -1,5 +1,6 @@
 package com.openhack.toyland.service.toy;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -22,7 +23,9 @@ import com.openhack.toyland.domain.user.ContributorRepository;
 import com.openhack.toyland.domain.user.User;
 import com.openhack.toyland.domain.user.UserRepository;
 import com.openhack.toyland.dto.ToyCreateRequest;
+import com.openhack.toyland.exception.DuplicatedEntityException;
 import com.openhack.toyland.exception.EntityNotFoundException;
+import com.openhack.toyland.service.MaintenanceService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -34,13 +37,20 @@ public class ToyCreateService {
     private final TechStackRepository techStackRepository;
     private final UserRepository userRepository;
     private final ContributorRepository contributorRepository;
+    private final MaintenanceService maintenanceService;
 
     @Transactional
     public Long create(ToyCreateRequest request) {
+        if (toyRepository.existsByGithubIdentifier(request.getGithubIdentifier())) {
+            throw new DuplicatedEntityException("입력하신 레포지토리로는 toy가 이미 생성되어있습니다.");
+        }
         validateOrganization(request);
 
         Toy toy = request.toEntity();
         Toy saved = toyRepository.save(toy);
+
+        maintenanceService.associate(LocalDateTime.parse(request.getPushedAt()), request.getServiceLink(),
+            saved.getId());
 
         List<User> users = request.toUsers();
         List<Long> updatedIds = fetchUserIds(users);

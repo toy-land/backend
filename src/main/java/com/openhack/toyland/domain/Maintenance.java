@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,4 +27,11 @@ public class Maintenance extends BaseTimeEntity {
 	private Boolean healthCheck;
 
 	private LocalDateTime active;
+
+	@Builder
+	public Maintenance(Long toyId, Boolean healthCheck, LocalDateTime active) {
+		this.toyId = toyId;
+		this.healthCheck = healthCheck;
+		this.active = active;
+	}
 }
