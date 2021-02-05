@@ -175,10 +175,10 @@ public class ToyService {
     }
 
     @Transactional
-    public void deleteById(Long id, DeleteToyRequstBody deleteRequest) {
+    public void deleteById(Long id, String password) {
         Toy toy = toyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Toy entity를 찾을 수 없습니다."));
 
-        checkPassword(toy, deleteRequest.getPassword());
+        checkPassword(toy, password);
         toyRepository.delete(toy);
         maintenanceRepository.deleteByToyId(toy.getId());
         techStackRepository.deleteAllByToyId(toy.getId());

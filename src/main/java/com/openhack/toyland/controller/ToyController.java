@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -93,9 +94,9 @@ public class ToyController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<SimpleSuccessResponse> deleteById(@PathVariable Long id,
-        @RequestBody @Valid DeleteToyRequstBody deleteToyRequstBody) {
-        service.deleteById(id, deleteToyRequstBody);
+    public ResponseEntity<SimpleSuccessResponse> deleteById(@RequestHeader(value = "password") String password,
+        @PathVariable Long id) {
+        service.deleteById(id, password);
 
         SimpleSuccessResponse response = new SimpleSuccessResponse("Toy 삭제 성공");
         log.info(response.toString());
