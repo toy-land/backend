@@ -1,17 +1,23 @@
 use toy_land_dev;
 insert into organization(id, name, created_date, updated_date)
-values(1, 'YAPP', now(), now()),
-      (2, 'SOPT', now(), now()),
-      (3, 'DDD', now(), now()),
-      (4, '디프만', now(), now()),
-      (5, 'Mash-up', now(), now()),
-      (6, 'Fun.d', now(), now()),
-      (7, '프로그라피', now(), now()),
-      (8, 'NEXTERS', now(), now()),
-      (9, '피로그래밍', now(), now()),
-      (10, 'DnD', now(), now()),
-      (11, '네이버 핵데이', now(), now()),
-      (12, '우아한 테크캠프', now(), now());
+values(1, 'SW중심대학 공동해커톤', now(), now()),
+      (2, 'YAPP', now(), now()),
+      (3, 'SOPT', now(), now()),
+      (4, 'DDD', now(), now()),
+      (5, '디프만', now(), now()),
+      (6, 'Mash-up', now(), now()),
+      (7, 'Fun.d', now(), now()),
+      (8, '프로그라피', now(), now()),
+      (9, 'NEXTERS', now(), now()),
+      (10, '피로그래밍', now(), now()),
+      (11, 'DnD', now(), now()),
+      (12, '네이버 핵데이', now(), now()),
+      (13, '우아한테크캠프', now(), now()),
+      (14, '우아한테크코스', now(), now()),
+      (15, '개인 개발', now(), now()),
+      (16, '졸업 작품', now(), now()),
+      (17, '수업 프로젝트', now(), now())
+      ;
 
 insert into skill(id, name, created_date, updated_date)
 values(1, 'java', now(), now()),

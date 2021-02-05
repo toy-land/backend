@@ -13,7 +13,7 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: ${DB_PASSWORD}
-  app:
-    api-token: ${API_TOKEN}
-    access-key-id: ${ACCESS_KEY_ID}
-    secret-key: ${SECRET_KEY}
+app:
+  api-token: ${API_TOKEN}
+  access-key-id: ${ACCESS_KEY_ID}
+  secret-key: ${SECRET_KEY}
