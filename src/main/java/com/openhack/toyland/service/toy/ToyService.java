@@ -155,6 +155,8 @@ public class ToyService {
         checkPassword(toy, deleteRequest.getPassword());
         toyRepository.delete(toy);
         maintenanceRepository.deleteByToyId(toy.getId());
+        techStackRepository.deleteAllByToyId(toy.getId());
+        contributorRepository.deleteAllByToyId(toy.getId());
     }
 
     private void checkPassword(Toy toy, String password) {
