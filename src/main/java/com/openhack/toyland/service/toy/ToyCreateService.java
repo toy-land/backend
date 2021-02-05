@@ -25,7 +25,7 @@ import com.openhack.toyland.domain.user.UserRepository;
 import com.openhack.toyland.dto.ToyCreateRequest;
 import com.openhack.toyland.exception.DuplicatedEntityException;
 import com.openhack.toyland.exception.EntityNotFoundException;
-import com.openhack.toyland.service.MaintenanceService;
+import com.openhack.toyland.service.maintenance.MaintenanceService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
