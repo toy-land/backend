@@ -17,14 +17,17 @@ import com.openhack.toyland.domain.user.Contributor;
 import com.openhack.toyland.domain.user.ContributorRepository;
 import com.openhack.toyland.domain.user.User;
 import com.openhack.toyland.domain.user.UserRepository;
+import com.openhack.toyland.dto.DeleteToyRequstBody;
 import com.openhack.toyland.dto.ToyDetailResponse;
 import com.openhack.toyland.dto.ToyResponse;
+import com.openhack.toyland.dto.UpdateToyRequestBody;
 import com.openhack.toyland.dto.UserResponse;
 import com.openhack.toyland.exception.EntityNotFoundException;
+import com.openhack.toyland.exception.InvalidRequestBodyException;
+import com.openhack.toyland.exception.UnAuthorizedEventException;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.support.PagedListHolder;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,7 +67,7 @@ public class ToyService {
             }
         });
 
-        PagedListHolder<ToyResponse> page = new PagedListHolder(answer);
+        PagedListHolder<ToyResponse> page = new PagedListHolder<>(answer);
         page.setPageSize(pageable.getPageSize());
         page.setPage(pageable.getPageNumber());
 
@@ -129,5 +132,33 @@ public class ToyService {
         return users.stream()
             .map(UserResponse::from)
             .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void updateById(Long id, UpdateToyRequestBody updateToyRequestBody) {
+        Toy toy = toyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Toy entity를 찾을 수 없습니다."));
+
+        checkPassword(toy, updateToyRequestBody.getPassword());
+
+        if (!toy.getGithubIdentifier().equals(updateToyRequestBody.getGithubIdentifier())) {
+            throw new InvalidRequestBodyException("github identification은 수정 불가");
+        }
+
+        Toy newToy = updateToyRequestBody.toEntity(toy.getId());
+        toyRepository.save(newToy);
+    }
+
+    @Transactional
+    public void deleteById(Long id, DeleteToyRequstBody deleteRequest) {
+        Toy toy = toyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Toy entity를 찾을 수 없습니다."));
+
+        checkPassword(toy, deleteRequest.getPassword());
+        toyRepository.delete(toy);
+    }
+
+    private void checkPassword(Toy toy, String password) {
+        if (!StringUtils.equals(toy.getPassword(), password)) {
+            throw new UnAuthorizedEventException();
+        }
     }
 }
