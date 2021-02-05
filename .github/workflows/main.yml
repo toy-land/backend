@@ -47,3 +47,9 @@ jobs:
           API_TOKEN: ${{ secrets.API_TOKEN }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          
+      - name: docker login
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
