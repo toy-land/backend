@@ -29,7 +29,8 @@ public class Maintenance extends BaseTimeEntity {
 	private LocalDateTime active;
 
 	@Builder
-	public Maintenance(Long toyId, Boolean healthCheck, LocalDateTime active) {
+	public Maintenance(Long id, Long toyId, Boolean healthCheck, LocalDateTime active) {
+		this.id = id;
 		this.toyId = toyId;
 		this.healthCheck = healthCheck;
 		this.active = active;

@@ -1,29 +1,32 @@
-package com.openhack.toyland.service;
+package com.openhack.toyland.service.maintenance;
 
-import java.net.UnknownHostException;
 import java.time.LocalDateTime;
+import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.openhack.toyland.domain.Maintenance;
 import com.openhack.toyland.domain.MaintenanceRepository;
 import com.openhack.toyland.exception.DuplicatedEntityException;
+import com.openhack.toyland.infra.ApiParser;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
 public class MaintenanceService {
     private final MaintenanceRepository repository;
-    private final RestTemplate restTemplate;
+    private final ApiParser apiParser;
+
+    public List<Maintenance> findAll() {
+        return repository.findAll();
+    }
 
     public void associate(LocalDateTime pushedAt, String serviceLink, Long toyId) {
         if (repository.existsByToyId(toyId)) {
             throw new DuplicatedEntityException("해당 toy에 대한 maintenance가 이미 저장되어 있습니다.");
         }
 
-        boolean isHealthy = check(serviceLink);
+        boolean isHealthy = apiParser.checkHealth(serviceLink);
 
         Maintenance maintenance = Maintenance.builder()
             .toyId(toyId)
@@ -34,13 +37,7 @@ public class MaintenanceService {
         repository.save(maintenance);
     }
 
-    private boolean check(String link) {
-        ResponseEntity<String> response = null;
-        try {
-            response =  restTemplate.getForEntity(link, String.class);
-        } catch (Exception e) {
-            return false;
-        }
-        return !response.getStatusCode().isError();
+    public void updateAll(List<Maintenance> maintenances) {
+        repository.saveAll(maintenances);
     }
 }

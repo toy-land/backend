@@ -1,0 +1,17 @@
+spring:
+  jpa:
+    open-in-view: false
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:mariadb://49.50.175.141:3306/toy_land_dev
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: ${DB_PASSWORD}
+app:
+  api-token: ${API_TOKEN}
