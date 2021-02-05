@@ -27,9 +27,9 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class MailServer {
 
-    @Value("${app.Access-Key-ID}")
+    @Value("${app.access-key-id}")
     private String accessKey;
-    @Value("${app.Secret-Key}")
+    @Value("${app.secret-key}")
     private String secretKey;
 
     private final RestTemplate restTemplate;

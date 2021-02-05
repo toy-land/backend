@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ApiParser {
     private final RestTemplate restTemplate;
 
-    @Value("${app.API_TOKEN}")
+    @Value("${app.api-token}")
     private String apiToken;
 
     public boolean checkHealth(String link) {
