@@ -22,4 +22,9 @@ public class Organization extends BaseTimeEntity {
     
     @NotNull
     private String name;
+
+    public Organization(@NotNull String name) {
+        this.id = null;
+        this.name = name;
+    }
 }
