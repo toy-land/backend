@@ -43,4 +43,7 @@ jobs:
         run: ./gradlew clean build
         shell: bash
         env:
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
