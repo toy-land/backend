@@ -77,13 +77,14 @@ public class ToyService {
         });
 
         PagedListHolder<ToyResponse> page = new PagedListHolder<>(answer);
-        page.setPageSize(pageable.getPageSize());
-        page.setPage(pageable.getPageNumber());
         String sortingField = pageable.getSort().toList().get(0).getProperty();
         boolean isIgnoreCase = true;
         boolean isAscending = pageable.getSort().toList().get(0).isAscending();
         page.setSort(new MutableSortDefinition(sortingField, isIgnoreCase, isAscending));
         page.resort();
+        page.setPageSize(pageable.getPageSize());
+        page.setPage(pageable.getPageNumber());
+        log.info(pageable.getPageNumber() + " " + pageable.getPageSize());
 
         return page.getPageList();
     }
