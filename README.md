@@ -1,5 +1,5 @@
 # TOY-LAND - 토이 프로젝트 활성화 웹 플랫폼
-## http://toy-land.co.kr/
+## http://toy-land.co.kr
 ![image](https://user-images.githubusercontent.com/46469385/107109329-e449a180-6882-11eb-9a07-783f0975ef5d.png)
 
 개발 기간: 2021.02.04 ~ 2021.02.06
