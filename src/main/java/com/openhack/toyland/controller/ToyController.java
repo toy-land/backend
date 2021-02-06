@@ -51,7 +51,7 @@ public class ToyController {
 
     @GetMapping
     public ResponseEntity<List<ToyResponse>> findAll(
-        @PageableDefault(size = 6, sort = "created_date", direction = Sort.Direction.DESC) Pageable pageable,
+        @PageableDefault(size = 12, sort = "created_date", direction = Sort.Direction.DESC) Pageable pageable,
         @RequestParam(required = false) List<Long> organization,
         @RequestParam(required = false) List<Long> skill,
         @RequestParam(required = false) List<String> category,
