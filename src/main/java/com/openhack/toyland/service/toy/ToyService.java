@@ -82,7 +82,7 @@ public class ToyService {
         String sortingField = pageable.getSort().toList().get(0).getProperty();
         boolean isIgnoreCase = true;
         boolean isAscending = pageable.getSort().toList().get(0).isAscending();
-        page.setSort(new MutableSortDefinition("created_date", isIgnoreCase, isAscending));
+        page.setSort(new MutableSortDefinition(sortingField, isIgnoreCase, isAscending));
         page.resort();
 
         return page.getPageList();
