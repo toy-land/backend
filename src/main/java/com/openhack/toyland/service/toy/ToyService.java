@@ -6,15 +6,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.support.PagedListHolder;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.openhack.toyland.domain.MaintenanceRepository;
 import com.openhack.toyland.domain.Organization;
 import com.openhack.toyland.domain.OrganizationRepository;
@@ -28,7 +22,6 @@ import com.openhack.toyland.domain.user.Contributor;
 import com.openhack.toyland.domain.user.ContributorRepository;
 import com.openhack.toyland.domain.user.User;
 import com.openhack.toyland.domain.user.UserRepository;
-import com.openhack.toyland.dto.DeleteToyRequstBody;
 import com.openhack.toyland.dto.SimpleToyResponse;
 import com.openhack.toyland.dto.ToyCreateRequest;
 import com.openhack.toyland.dto.ToyDetailResponse;
@@ -39,7 +32,15 @@ import com.openhack.toyland.exception.EntityNotFoundException;
 import com.openhack.toyland.exception.InvalidRequestBodyException;
 import com.openhack.toyland.exception.UnAuthorizedEventException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.support.MutableSortDefinition;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j(topic = "[toy service]")
 @RequiredArgsConstructor
 @Service
 public class ToyService {
@@ -78,6 +79,11 @@ public class ToyService {
         PagedListHolder<ToyResponse> page = new PagedListHolder<>(answer);
         page.setPageSize(pageable.getPageSize());
         page.setPage(pageable.getPageNumber());
+        String sortingField = pageable.getSort().toList().get(0).getProperty();
+        boolean isIgnoreCase = true;
+        boolean isAscending = pageable.getSort().toList().get(0).isAscending();
+        page.setSort(new MutableSortDefinition(sortingField, isIgnoreCase, isAscending));
+        page.resort();
 
         return page.getPageList();
     }

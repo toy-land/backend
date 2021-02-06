@@ -20,6 +20,7 @@ public class ToyResponse {
     private String category;
     private LocalDateTime active;
     private List<Skill> skills;
+    private LocalDateTime created_date;
 
     public ToyResponse(Toy toy, Maintenance maintenance, List<Skill> skills) {
         this.id = toy.getId();
@@ -29,5 +30,6 @@ public class ToyResponse {
         this.category = toy.getCategory().toString();
         this.active = maintenance.getActive();
         this.skills = skills;
+        this.created_date = toy.getCreatedDate();
     }
 }
