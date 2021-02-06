@@ -28,11 +28,11 @@
 ## 3. 기술 스택
 > Application & Data
 
-![image](https://user-images.githubusercontent.com/46469385/107109886-f88f9d80-6886-11eb-85d7-fdd50a5d3b21.png)
+<img src="https://user-images.githubusercontent.com/46469385/107109886-f88f9d80-6886-11eb-85d7-fdd50a5d3b21.png" width="400">
 
 > DevOps
 
-![image](https://user-images.githubusercontent.com/46469385/107109907-10672180-6887-11eb-8cea-84dc7de562c0.png)
+<img src="https://user-images.githubusercontent.com/46469385/107109907-10672180-6887-11eb-8cea-84dc7de562c0.png" width="400">
 
 ## 4. [API 문서 바로가기](https://github.com/toy-land/backend/wiki)
 
@@ -40,6 +40,6 @@
 
 ## 6. Members
 
-* SeungWan Park [@toneyparky](https://github.com/toneyparky)
+* **SeungWan Park** [@toneyparky](https://github.com/toneyparky)
 
-* Soyeon Park [@sypark9646](https://github.com/sypark9646)
+* **Soyeon Park** [@sypark9646](https://github.com/sypark9646)
