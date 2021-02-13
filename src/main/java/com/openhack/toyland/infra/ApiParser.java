@@ -29,6 +29,7 @@ public class ApiParser {
     private String apiToken;
 
     public boolean checkHealth(String link) {
+        log.info("[health-check]:" + link);
         ResponseEntity<String> response = null;
         try {
             response = restTemplate.getForEntity(link, String.class);
