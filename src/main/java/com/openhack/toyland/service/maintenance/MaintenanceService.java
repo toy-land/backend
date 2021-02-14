@@ -3,6 +3,7 @@ package com.openhack.toyland.service.maintenance;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.openhack.toyland.domain.UpdatableMaintenance;
 import org.springframework.stereotype.Service;
 
 import com.openhack.toyland.domain.Maintenance;
@@ -19,6 +20,10 @@ public class MaintenanceService {
 
     public List<Maintenance> findAll() {
         return repository.findAll();
+    }
+
+    public List<UpdatableMaintenance> findAllNeedsHealthCheck() {
+        return repository.findAllByNeedsHealthCheck();
     }
 
     public void associate(LocalDateTime pushedAt, String serviceLink, Long toyId) {

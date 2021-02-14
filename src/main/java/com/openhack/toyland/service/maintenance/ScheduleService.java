@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import com.openhack.toyland.domain.Maintenance;
+import com.openhack.toyland.domain.UpdatableMaintenance;
 import com.openhack.toyland.domain.toy.Toy;
 import com.openhack.toyland.dto.EmailParticipant;
-import com.openhack.toyland.dto.ToyDetailResponse;
 import com.openhack.toyland.infra.ApiParser;
 import com.openhack.toyland.infra.MailServer;
 import com.openhack.toyland.service.toy.ToyService;
@@ -19,7 +19,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
+@Slf4j(topic = "[Schedule]:")
 @RequiredArgsConstructor
 @Service
 public class ScheduleService {
@@ -33,19 +33,22 @@ public class ScheduleService {
     @Scheduled(cron = "0 0 0 * * *")
     @Transactional
     public void updateMaintenance() {
-        List<Maintenance> maintenances = maintenanceService.findAll();
+        List<UpdatableMaintenance> maintenances = maintenanceService.findAllNeedsHealthCheck();
         List<Maintenance> updates = new ArrayList<>();
-        for (Maintenance maintenance : maintenances) {
-            ToyDetailResponse toy = toyService.findById(maintenance.getToyId());
-            boolean isHealthy = apiParser.checkHealth(toy.getServiceLink());
-            LocalDateTime active = apiParser.fetchActive(toy.getGithubLink(), toy.getActive());
+        for (UpdatableMaintenance updatableMaintenance : maintenances) {
+            log.info("maintenance: " + updatableMaintenance.getMaintenance().toString());
+            log.info("service-link: " + updatableMaintenance.getServiceLink());
+            log.info("github-link: " + updatableMaintenance.getGithubLink());
+            boolean isHealthy = apiParser.checkHealth(updatableMaintenance.getServiceLink());
+            LocalDateTime active = apiParser
+                .fetchActive(updatableMaintenance.getGithubLink(), updatableMaintenance.getMaintenance().getActive());
             log.warn(active.toString());
             Maintenance updated = Maintenance.builder()
-                .id(maintenance.getId())
-                .toyId(maintenance.getToyId())
+                .id(updatableMaintenance.getMaintenance().getId())
+                .toyId(updatableMaintenance.getMaintenance().getToyId())
                 .active(active)
                 .healthCheck(isHealthy)
-                .sleepDays(isHealthy ? 0 : maintenance.getSleepDays() + 1L)
+                .sleepDays(isHealthy ? 0 : updatableMaintenance.getMaintenance().getSleepDays() + 1L)
                 .build();
             updates.add(updated);
         }
@@ -56,7 +59,7 @@ public class ScheduleService {
     @Transactional
     public void sendMail() throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
         List<Maintenance> maintenances = maintenanceService.findBySleepDaysGreaterThan(threshold);
-
+        // TODO: email 링크가 비어 있거나 null일 경우 안 가져오도록
         List<EmailParticipant> emailParticipants = new ArrayList<>();
         for (Maintenance maintenance : maintenances) {
             Toy toy = toyService.findEntityByIdAndEmailIsNotNull(maintenance.getToyId());
