@@ -28,7 +28,7 @@ public class ScheduleService {
     private final ApiParser apiParser;
     private final MailServer mailServer;
 
-    private final long threshold = 6;
+    private final long THRESHOLD = 6;
 
     @Scheduled(cron = "0 0 0 * * *")
     @Transactional
@@ -58,7 +58,7 @@ public class ScheduleService {
     @Scheduled(cron = "0 5 0 * * *")
     @Transactional
     public void sendMail() throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
-        List<Maintenance> maintenances = maintenanceService.findBySleepDaysGreaterThan(threshold);
+        List<Maintenance> maintenances = maintenanceService.findBySleepDaysGreaterThan(THRESHOLD);
         // TODO: email 링크가 비어 있거나 null일 경우 안 가져오도록
         List<EmailParticipant> emailParticipants = new ArrayList<>();
         for (Maintenance maintenance : maintenances) {
