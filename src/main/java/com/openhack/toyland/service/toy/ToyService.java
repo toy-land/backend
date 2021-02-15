@@ -6,9 +6,16 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.support.MutableSortDefinition;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.openhack.toyland.domain.MaintenanceRepository;
 import com.openhack.toyland.domain.Organization;
 import com.openhack.toyland.domain.OrganizationRepository;
@@ -33,12 +40,6 @@ import com.openhack.toyland.exception.InvalidRequestBodyException;
 import com.openhack.toyland.exception.UnAuthorizedEventException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.support.MutableSortDefinition;
-import org.springframework.beans.support.PagedListHolder;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j(topic = "[toy service]")
 @RequiredArgsConstructor
@@ -264,8 +265,8 @@ public class ToyService {
     }
 
     @Transactional(readOnly = true)
-    public Toy findEntityByIdAndEmailIsNotNull(Long id) {
-        return toyRepository.findByIdAndEmailIsNotNull(id)
+    public Toy findEntityByIdAndEmailIsNotBlank(Long id) {
+        return toyRepository.findByIdAndEmailIsNotNullAndEmailNot(id, "")
             .orElseThrow(() -> new EntityNotFoundException("toy를 찾을 수 없습니다"));
     }
 }

@@ -59,10 +59,9 @@ public class ScheduleService {
     @Transactional
     public void sendMail() throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
         List<Maintenance> maintenances = maintenanceService.findBySleepDaysGreaterThan(THRESHOLD);
-        // TODO: email 링크가 비어 있거나 null일 경우 안 가져오도록
         List<EmailParticipant> emailParticipants = new ArrayList<>();
         for (Maintenance maintenance : maintenances) {
-            Toy toy = toyService.findEntityByIdAndEmailIsNotNull(maintenance.getToyId());
+            Toy toy = toyService.findEntityByIdAndEmailIsNotBlank(maintenance.getToyId());
             EmailParticipant emailParticipant =
                 new EmailParticipant(toy.getEmail(), toy.getTitle(), maintenance.getSleepDays());
             emailParticipants.add(emailParticipant);
