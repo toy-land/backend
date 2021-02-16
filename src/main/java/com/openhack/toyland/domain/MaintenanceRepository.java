@@ -14,6 +14,6 @@ public interface MaintenanceRepository extends JpaRepository<Maintenance, Long> 
 
     List<Maintenance> findBySleepDaysGreaterThan(Long threshold);
 
-    @Query("select m as maintenance, t.githubLink as githubLink, t.serviceLink as serviceLink from Maintenance m inner join Toy t on t.id=m.toyId where t.serviceLink is not null and t.serviceLink <> ''")
+    @Query("select m as maintenance, t.githubLink as githubLink, t.serviceLink as serviceLink from Maintenance m inner join Toy t on t.id=m.toyId where t.serviceLink is not null and t.serviceLink <> '' and t.email is not null and t.email <> ''")
     List<UpdatableMaintenance> findAllByNeedsHealthCheck();
 }
