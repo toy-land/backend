@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    open-in-view: false
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:tc:mariadb:///toy_land_test?TC_INITSCRIPT=file:src/main/resources/init.sql
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+app:
+  scheduling:
+    enable: false
