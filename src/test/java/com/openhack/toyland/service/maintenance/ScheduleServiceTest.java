@@ -1,15 +1,18 @@
 package com.openhack.toyland.service.maintenance;
 
 import java.util.List;
-import com.openhack.toyland.domain.UpdatableMaintenance;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.openhack.toyland.IntegrationTest;
+import com.openhack.toyland.domain.UpdatableMaintenance;
+
 @SpringBootTest
-public class ScheduleServiceTest {
+public class ScheduleServiceTest extends IntegrationTest {
 
     @Autowired
     ScheduleService scheduleService;
@@ -19,9 +22,9 @@ public class ScheduleServiceTest {
 
     @Test
     @DisplayName("toy.service_link 가 빈 문자열이 아닌 maintenance 를 가져오는 테스트")
-    public void testNotToFindToyServiceLinkIsEmpty(){
+    public void testNotToFindToyServiceLinkIsEmpty() {
         List<UpdatableMaintenance> updatableMaintenanceList = maintenanceService.findAllNeedsHealthCheck();
-        for(UpdatableMaintenance updatableMaintenance: updatableMaintenanceList){
+        for (UpdatableMaintenance updatableMaintenance : updatableMaintenanceList) {
             Assertions.assertNotNull(updatableMaintenance.getServiceLink());
         }
     }

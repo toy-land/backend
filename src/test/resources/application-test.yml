@@ -5,9 +5,15 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
-  datasource:
-    url: jdbc:tc:mariadb:///toy_land_test?TC_INITSCRIPT=file:src/main/resources/init.sql
-    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+  liquibase:
+    change-log: classpath:liquibase/changelog_master.xml
+    contexts: toy_land_test
+
+logging:
+  level:
+    liquibase: INFO
+
 app:
   scheduling:
     enable: false
+
