@@ -5,15 +5,7 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
-  liquibase:
-    change-log: classpath:liquibase/changelog_master.xml
-    contexts: toy_land_test
-
-logging:
-  level:
-    liquibase: INFO
 
 app:
   scheduling:
     enable: false
-
