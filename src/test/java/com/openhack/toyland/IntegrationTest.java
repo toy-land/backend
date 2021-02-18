@@ -2,6 +2,8 @@ package com.openhack.toyland;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContextInitializer;
@@ -14,9 +16,6 @@ import org.testcontainers.containers.MariaDBContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @ActiveProfiles("test")
 @Sql(scripts = {"/db/init-test.sql", "/db/insert-test.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = {"/db/truncate-test.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
@@ -29,6 +28,7 @@ public abstract class IntegrationTest {
 
     public static MariaDBContainer mariaDBContainer = new MariaDBContainer<>("mariadb:latest")
         .withDatabaseName("toy_land_test");
+    private static Logger log = LoggerFactory.getLogger(IntegrationTest.class);
 
     static {
         mariaDBContainer.start();
