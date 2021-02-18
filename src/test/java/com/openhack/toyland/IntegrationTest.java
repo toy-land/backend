@@ -20,7 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-@Sql(scripts = {"/db/init-test.sql", "/db/insert-test.sql"})
+@Sql(scripts = {"/db/init-test.sql", "/db/insert-test.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = {"/db/truncate-test.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)

@@ -1,8 +1,5 @@
 use toy_land_test;
 
-# truncate table organization;
-# truncate table skill;
-
 insert into organization (id, created_date, updated_date, name)
 values (1, '2021-02-06 11:48:13.000000', '2021-02-06 11:48:13.000000', 'SW\uc911\uc2ec\ub300\ud559 \uacf5\ub3d9\ud574\ucee4\ud1a4'),
     (2, '2021-02-06 11:48:13.000000', '2021-02-06 11:48:13.000000', 'YAPP'),

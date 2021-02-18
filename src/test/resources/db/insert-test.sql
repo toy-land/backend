@@ -1,12 +1,5 @@
 use toy_land_test;
 
-# truncate table toy;
-# truncate table user;
-# truncate table tech_stack;
-# truncate table maintenance;
-# truncate table contributor;
-
-
 insert into toy(id, created_date, updated_date, category, description, email, github_identifier, github_link, logo_url,
                 organization_id, password, period, readme, service_link, title)
 values (3, '2021-02-06 04:12:43.943419', '2021-02-06 04:12:43.943419', 'WEB', 'DrinkMe front-end', '', 174820336,
