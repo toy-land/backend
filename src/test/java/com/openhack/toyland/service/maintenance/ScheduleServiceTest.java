@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.openhack.toyland.IntegrationTest;
+import com.openhack.toyland.PersistenceTest;
 import com.openhack.toyland.domain.UpdatableMaintenance;
 
 @SpringBootTest
-public class ScheduleServiceTest extends IntegrationTest {
+public class ScheduleServiceTest extends PersistenceTest {
 
     @Autowired
     ScheduleService scheduleService;

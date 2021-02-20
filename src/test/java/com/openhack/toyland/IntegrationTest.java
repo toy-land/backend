@@ -1,56 +1,30 @@
 package com.openhack.toyland;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestInstance;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.support.TestPropertySourceUtils;
-import org.testcontainers.containers.MariaDBContainer;
-import org.testcontainers.containers.output.Slf4jLogConsumer;
-import org.testcontainers.junit.jupiter.Testcontainers;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
-@ActiveProfiles("test")
-@Sql(scripts = {"/db/init-test.sql", "/db/insert-test.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-@Sql(scripts = {"/db/truncate-test.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ContextConfiguration(initializers = IntegrationTest.Initializer.class)
-@Testcontainers
-public abstract class IntegrationTest {
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-    public static MariaDBContainer mariaDBContainer = new MariaDBContainer<>("mariadb:latest")
-        .withDatabaseName("toy_land_test");
-    private static Logger log = LoggerFactory.getLogger(IntegrationTest.class);
+public abstract class IntegrationTest extends PersistenceTest {
+    public static MockMvc mockMvc;
 
-    static {
-        mariaDBContainer.start();
+    public ObjectMapper objectMapper;
+
+    @BeforeAll
+    static void beforeAll(WebApplicationContext webApplicationContext) {
+        mockMvc = MockMvcBuilders
+            .webAppContextSetup(webApplicationContext)
+            .addFilters(new CharacterEncodingFilter("UTF-8", true))
+            .build();
     }
 
-    public static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-
-        @Override
-        public void initialize(ConfigurableApplicationContext applicationContext) {
-
-            TestPropertySourceUtils.addInlinedPropertiesToEnvironment(
-                applicationContext,
-                "spring.datasource.url=" + mariaDBContainer.getJdbcUrl(),
-                "spring.datasource.username=" + mariaDBContainer.getUsername(),
-                "spring.datasource.password=" + mariaDBContainer.getPassword()
-            );
-        }
-    }
-
+    @Override
     @BeforeEach
     public void setUp() {
-        Slf4jLogConsumer logConsumer = new Slf4jLogConsumer(log);
-        mariaDBContainer.followOutput(logConsumer);
+        objectMapper = new ObjectMapper();
     }
 }
