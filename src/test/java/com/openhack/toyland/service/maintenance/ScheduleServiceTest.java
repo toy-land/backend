@@ -20,8 +20,8 @@ public class ScheduleServiceTest extends PersistenceTest {
     @Autowired
     MaintenanceService maintenanceService;
 
-    @Test
     @DisplayName("toy.service_link 가 빈 문자열이 아닌 maintenance 를 가져오는 테스트")
+    @Test
     public void testNotToFindToyServiceLinkIsEmpty() {
         List<UpdatableMaintenance> updatableMaintenanceList = maintenanceService.findAllNeedsHealthCheck();
         for (UpdatableMaintenance updatableMaintenance : updatableMaintenanceList) {
