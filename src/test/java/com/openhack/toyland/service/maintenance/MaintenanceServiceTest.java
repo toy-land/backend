@@ -1,7 +1,11 @@
 package com.openhack.toyland.service.maintenance;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,12 +16,27 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.openhack.toyland.config.RestTemplateConfig;
+import com.openhack.toyland.PersistenceTest;
+import com.openhack.toyland.domain.Maintenance;
+import com.openhack.toyland.domain.MaintenanceRepository;
+import com.openhack.toyland.domain.toy.Toy;
+import com.openhack.toyland.domain.toy.ToyRepository;
 
-@SpringBootTest(classes = {RestTemplateConfig.class})
-class MaintenanceServiceTest {
+@SpringBootTest
+class MaintenanceServiceTest extends PersistenceTest {
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private MaintenanceService maintenanceService;
+
+    @Autowired
+    private MaintenanceRepository maintenanceRepository;
+
+    @Autowired
+    private ToyRepository toyRepository;
+
+    public static final String PUSHED_AT = "2021-01-18T16:36:27Z";
 
     @Test
     void apiParse() throws JsonProcessingException {
@@ -142,7 +161,7 @@ class MaintenanceServiceTest {
 
         JsonNode pushed_at = jsonNodes.get("pushed_at");
 
-        assertThat(pushed_at.asText()).isEqualTo("2021-01-18T16:36:27Z");
+        assertThat(pushed_at.asText()).isEqualTo(PUSHED_AT);
     }
 
     @Test
@@ -154,5 +173,22 @@ class MaintenanceServiceTest {
 
         JsonNode pushed_at = jsonNodes.get("pushed_at");
         assertThat(pushed_at.asText()).isNotBlank();
+    }
+
+    @DisplayName("Maintenance가 정상적으로 생성되는지 확인한다")
+    @Test
+    void associate() {
+        Toy toy = toyRepository.save(
+            new Toy(null, 123L, "title", "password", "description", "readme", "logoUrl", "githubLink", "serviceLink",
+                "email", 1L, "AI", "LESS_THAN_A_DAY"));
+
+        maintenanceService.associate(LocalDateTime.parse(PUSHED_AT.replace("Z", "")), "https://cocktailpick.com",
+            toy.getId());
+
+        Maintenance maintenance = maintenanceRepository.findByToyId(toy.getId()).get();
+        assertAll(
+            () -> assertThat(maintenance.getId()).isNotNull(),
+            () -> assertThat(maintenance.getCreatedDate()).isNotNull()
+        );
     }
 }

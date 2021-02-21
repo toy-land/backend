@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.openhack.toyland.IntegrationTest;
+import com.openhack.toyland.PersistenceTest;
 import com.openhack.toyland.domain.UpdatableMaintenance;
 
 @SpringBootTest
-public class ScheduleServiceTest extends IntegrationTest {
+public class ScheduleServiceTest extends PersistenceTest {
 
     @Autowired
     ScheduleService scheduleService;
@@ -20,8 +20,8 @@ public class ScheduleServiceTest extends IntegrationTest {
     @Autowired
     MaintenanceService maintenanceService;
 
-    @Test
     @DisplayName("toy.service_link 가 빈 문자열이 아닌 maintenance 를 가져오는 테스트")
+    @Test
     public void testNotToFindToyServiceLinkIsEmpty() {
         List<UpdatableMaintenance> updatableMaintenanceList = maintenanceService.findAllNeedsHealthCheck();
         for (UpdatableMaintenance updatableMaintenance : updatableMaintenanceList) {
