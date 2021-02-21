@@ -2,17 +2,20 @@ package com.openhack.toyland.infra;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openhack.toyland.dto.EmailParticipant;
 import com.openhack.toyland.dto.EmailRequestBody;
 import com.openhack.toyland.util.JsonTransformer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;

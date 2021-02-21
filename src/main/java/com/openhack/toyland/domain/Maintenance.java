@@ -19,25 +19,25 @@ import lombok.ToString;
 @Entity
 @ToString
 public class Maintenance extends BaseTimeEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@NotNull
-	private Long toyId;
+    @NotNull
+    private Long toyId;
 
-	private Boolean healthCheck;
+    private Boolean healthCheck;
 
-	private Long sleepDays;
+    private Long sleepDays;
 
-	private LocalDateTime active;
+    private LocalDateTime active;
 
-	@Builder
-	public Maintenance(Long id, Long toyId, Boolean healthCheck, Long sleepDays, LocalDateTime active) {
-		this.id = id;
-		this.toyId = toyId;
-		this.healthCheck = healthCheck;
-		this.sleepDays = sleepDays;
-		this.active = active;
-	}
+    @Builder
+    public Maintenance(Long id, Long toyId, Boolean healthCheck, Long sleepDays, LocalDateTime active) {
+        this.id = id;
+        this.toyId = toyId;
+        this.healthCheck = healthCheck;
+        this.sleepDays = sleepDays;
+        this.active = active;
+    }
 }

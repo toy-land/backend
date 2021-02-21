@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openhack.toyland.dto.DeleteToyRequstBody;
 import com.openhack.toyland.dto.SimpleSuccessResponse;
 import com.openhack.toyland.dto.SimpleToyResponse;
 import com.openhack.toyland.dto.ToyCreateRequest;
