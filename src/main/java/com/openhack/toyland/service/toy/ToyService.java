@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.openhack.toyland.domain.Maintenance;
 import com.openhack.toyland.domain.MaintenanceRepository;
 import com.openhack.toyland.domain.Organization;
 import com.openhack.toyland.domain.OrganizationRepository;
@@ -127,7 +128,11 @@ public class ToyService {
 
         List<UserResponse> userResponses = fetchUserResponses(toy);
 
-        return new ToyDetailResponse(toy, organization, skillNames, userResponses);
+        Maintenance maintenance = maintenanceRepository.findByToyId(id)
+            .orElseThrow(() -> new EntityNotFoundException("해당되는 maintenance가 없습니다."));
+
+        return new ToyDetailResponse(toy, organization, skillNames, userResponses, maintenance.getActive(),
+            maintenance.getHealthCheck());
     }
 
     private List<String> fetchSkillNames(Toy toy) {
