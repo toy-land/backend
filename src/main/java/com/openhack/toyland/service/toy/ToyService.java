@@ -173,6 +173,8 @@ public class ToyService {
             throw new InvalidRequestBodyException("github identification은 수정 불가");
         }
 
+        validateOrganization(updateToyRequestBody.getOrganizationId());
+
         Toy newToy = updateToyRequestBody.toEntity(toy.getId());
         toyRepository.save(newToy);
         techStackRepository.deleteAllByToyId(toy.getId());
@@ -204,8 +206,8 @@ public class ToyService {
         }
     }
 
-    private void validateOrganization(ToyCreateRequest request) {
-        if (!organizationRepository.existsById(request.getOrganizationId())) {
+    private void validateOrganization(Long organizationId) {
+        if (!organizationRepository.existsById(organizationId)) {
             throw new EntityNotFoundException("해당되는 소속이 없습니다.");
         }
     }
