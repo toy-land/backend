@@ -10,7 +10,6 @@ import java.util.Collections;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -22,7 +21,6 @@ import com.openhack.toyland.domain.toy.ToyRepository;
 import com.openhack.toyland.dto.ContributorCreateRequest;
 import com.openhack.toyland.dto.ToyCreateRequest;
 
-@SpringBootTest
 class ToyControllerTest extends IntegrationTest {
     @Autowired
     private ToyRepository toyRepository;
