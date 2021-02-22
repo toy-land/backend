@@ -31,7 +31,6 @@ import com.openhack.toyland.domain.user.ContributorRepository;
 import com.openhack.toyland.domain.user.User;
 import com.openhack.toyland.domain.user.UserRepository;
 import com.openhack.toyland.dto.SimpleToyResponse;
-import com.openhack.toyland.dto.ToyCreateRequest;
 import com.openhack.toyland.dto.ToyDetailResponse;
 import com.openhack.toyland.dto.ToyResponse;
 import com.openhack.toyland.dto.UpdateToyRequestBody;
