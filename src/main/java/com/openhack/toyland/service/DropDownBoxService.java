@@ -10,12 +10,13 @@ import com.openhack.toyland.domain.toy.Category;
 import com.openhack.toyland.domain.toy.Period;
 import com.openhack.toyland.dto.OrganizationResponse;
 import com.openhack.toyland.dto.SkillResponse;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class DropDownBoxService {
 
     private final SkillRepository skillRepository;

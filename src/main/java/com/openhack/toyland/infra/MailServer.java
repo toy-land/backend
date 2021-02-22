@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openhack.toyland.dto.EmailParticipant;
 import com.openhack.toyland.dto.EmailRequestBody;
 import com.openhack.toyland.util.JsonTransformer;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +28,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Slf4j(topic = "[mail server]")
 @Component
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class MailServer {
 
     @Value("${app.access-key-id}")

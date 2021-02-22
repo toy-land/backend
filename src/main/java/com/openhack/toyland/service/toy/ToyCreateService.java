@@ -26,9 +26,10 @@ import com.openhack.toyland.dto.ToyCreateRequest;
 import com.openhack.toyland.exception.DuplicatedEntityException;
 import com.openhack.toyland.exception.EntityNotFoundException;
 import com.openhack.toyland.service.maintenance.MaintenanceService;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @Service
 public class ToyCreateService {
     private final ToyRepository toyRepository;

@@ -1,10 +1,11 @@
 package com.openhack.toyland.dto;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EmailParticipant {
 
     private String address;

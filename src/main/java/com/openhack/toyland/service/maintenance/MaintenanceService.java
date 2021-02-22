@@ -11,9 +11,10 @@ import com.openhack.toyland.domain.Maintenance;
 import com.openhack.toyland.domain.MaintenanceRepository;
 import com.openhack.toyland.exception.DuplicatedEntityException;
 import com.openhack.toyland.infra.ApiParser;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 @Service
 public class MaintenanceService {
     private final MaintenanceRepository repository;

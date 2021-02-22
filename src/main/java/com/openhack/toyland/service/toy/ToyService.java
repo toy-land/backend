@@ -38,11 +38,12 @@ import com.openhack.toyland.dto.UserResponse;
 import com.openhack.toyland.exception.EntityNotFoundException;
 import com.openhack.toyland.exception.InvalidRequestBodyException;
 import com.openhack.toyland.exception.UnAuthorizedEventException;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j(topic = "[toy service]")
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @Service
 public class ToyService {
     private final ToyRepository toyRepository;
