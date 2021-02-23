@@ -64,7 +64,7 @@ public class ToyUpdateServiceTest extends PersistenceTest {
 
     @DisplayName("toy update 실패 테스트 - toy id 없음 오류")
     @Test
-    void updateByIdSFailedByToyIdOutOfBoundary() {
+    void updateByIdFailedByToyIdOutOfBoundary() {
         ContributorCreateRequest contributor = new ContributorCreateRequest(123L, "toneyparky", "https://id.com");
 
         UpdateToyRequestBody updateToyRequestBody = new UpdateToyRequestBody(100L, 139023480L, "BackendServer",
@@ -80,7 +80,7 @@ public class ToyUpdateServiceTest extends PersistenceTest {
 
     @DisplayName("toy update 실패 테스트 - Organization id 없음 오류")
     @Test
-    void updateByIdSFailedByOrganizationIdOutOfBoundary() {
+    void updateByIdFailedByOrganizationIdOutOfBoundary() {
         ContributorCreateRequest contributor = new ContributorCreateRequest(123L, "toneyparky", "https://id.com");
 
         UpdateToyRequestBody updateToyRequestBody = new UpdateToyRequestBody(toyId, 139023480L, "BackendServer",
@@ -96,7 +96,7 @@ public class ToyUpdateServiceTest extends PersistenceTest {
 
     @DisplayName("toy update 실패 테스트 - Category 없음 오류")
     @Test
-    void updateByIdSFailedByCategoryNotFound() {
+    void updateByIdFailedByCategoryNotFound() {
         ContributorCreateRequest contributor = new ContributorCreateRequest(123L, "toneyparky", "https://id.com");
 
         UpdateToyRequestBody updateToyRequestBody = new UpdateToyRequestBody(toyId, 139023480L, "BackendServer",
@@ -112,7 +112,7 @@ public class ToyUpdateServiceTest extends PersistenceTest {
 
     @DisplayName("toy update 실패 테스트 - Period 없음 오류")
     @Test
-    void updateByIdSFailedByPeriodNotFound() {
+    void updateByIdFailedByPeriodNotFound() {
         ContributorCreateRequest contributor = new ContributorCreateRequest(123L, "toneyparky", "https://id.com");
 
         UpdateToyRequestBody updateToyRequestBody = new UpdateToyRequestBody(toyId, 139023480L, "BackendServer",
@@ -128,7 +128,7 @@ public class ToyUpdateServiceTest extends PersistenceTest {
 
     @DisplayName("toy update 실패 테스트 - 비밀번호 오류")
     @Test
-    void updateByIdSFailedByDifferentPassword() {
+    void updateByIdFailedByDifferentPassword() {
         ContributorCreateRequest contributor = new ContributorCreateRequest(123L, "toneyparky", "https://id.com");
 
         UpdateToyRequestBody updateToyRequestBody = new UpdateToyRequestBody(toyId, 139023480L, "BackendServer",
@@ -144,7 +144,7 @@ public class ToyUpdateServiceTest extends PersistenceTest {
 
     @DisplayName("toy update 실패 테스트 - 수정된 GithubIdentifier 오류")
     @Test
-    void updateByIdSFailedByDifferentGithubIdentifier() {
+    void updateByIdFailedByDifferentGithubIdentifier() {
         ContributorCreateRequest contributor = new ContributorCreateRequest(123L, "toneyparky", "https://id.com");
 
         UpdateToyRequestBody updateToyRequestBody = new UpdateToyRequestBody(toyId, 123L, "BackendServer",
