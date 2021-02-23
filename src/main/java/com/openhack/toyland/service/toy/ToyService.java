@@ -1,11 +1,13 @@
 package com.openhack.toyland.service.toy;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -38,6 +40,8 @@ import com.openhack.toyland.dto.UserResponse;
 import com.openhack.toyland.exception.EntityNotFoundException;
 import com.openhack.toyland.exception.InvalidRequestBodyException;
 import com.openhack.toyland.exception.UnAuthorizedEventException;
+import com.openhack.toyland.infra.ApiParser;
+import com.openhack.toyland.service.maintenance.MaintenanceService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,6 +57,8 @@ public class ToyService {
     private final ContributorRepository contributorRepository;
     private final UserRepository userRepository;
     private final MaintenanceRepository maintenanceRepository;
+    private final MaintenanceService maintenanceService;
+    private final ApiParser apiParser;
 
     @Transactional(readOnly = true)
     public List<ToyResponse> findAll(Pageable pageable, List<Long> organizationIds, List<Long> skillIds,
@@ -128,11 +134,15 @@ public class ToyService {
 
         List<UserResponse> userResponses = fetchUserResponses(toy);
 
-        Maintenance maintenance = maintenanceRepository.findByToyId(id)
-            .orElseThrow(() -> new EntityNotFoundException("해당되는 maintenance가 없습니다."));
+        Optional<Maintenance> maintenance = maintenanceRepository.findByToyId(id);
+        if (maintenance.isEmpty()) {
+            LocalDateTime active = apiParser.fetchActive(toy.getGithubLink(), toy.getCreatedDate());
+            maintenanceService.associate(active, toy.getServiceLink(), toy.getId());
+            throw new EntityNotFoundException("해당되는 maintenance가 없습니다.");
+        }
 
-        return new ToyDetailResponse(toy, organization, skillNames, userResponses, maintenance.getActive(),
-            maintenance.getHealthCheck());
+        return new ToyDetailResponse(toy, organization, skillNames, userResponses, maintenance.get().getActive(),
+            maintenance.get().getHealthCheck());
     }
 
     private List<String> fetchSkillNames(Toy toy) {

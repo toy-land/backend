@@ -2,6 +2,7 @@ package com.openhack.toyland.domain;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,11 +25,12 @@ public class Maintenance extends BaseTimeEntity {
     private Long id;
 
     @NotNull
+    @Column(name = "toy_id", unique = true)
     private Long toyId;
 
     private Boolean healthCheck;
 
-    private Long sleepDays;
+    private Long sleepDays = 0L;
 
     private LocalDateTime active;
 

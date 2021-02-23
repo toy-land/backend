@@ -2,6 +2,8 @@ package com.openhack.toyland.service.toy;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
+import java.util.Optional;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.openhack.toyland.IntegrationTest;
+import com.openhack.toyland.domain.Maintenance;
 import com.openhack.toyland.domain.MaintenanceRepository;
 import com.openhack.toyland.domain.Organization;
 import com.openhack.toyland.domain.OrganizationRepository;
@@ -68,5 +71,8 @@ public class ToyFindSingleServiceTest extends IntegrationTest {
         assertThatThrownBy(() -> {
             toyService.findById(toyId);
         }).isInstanceOf(EntityNotFoundException.class);
+
+       Optional<Maintenance> maintenance = maintenanceRepository.findByToyId(toyId);
+       Assertions.assertTrue(maintenance.isPresent());
     }
 }
