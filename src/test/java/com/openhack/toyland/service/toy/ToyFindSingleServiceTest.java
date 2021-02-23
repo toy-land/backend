@@ -42,7 +42,7 @@ public class ToyFindSingleServiceTest extends IntegrationTest {
     void findByIdFailedByToyIdOutOfBoundary() {
 
         assertThatThrownBy(() -> {
-            ToyDetailResponse toyDetailResponse = toyService.findById(100L);
+            toyService.findById(100L);
         }).isInstanceOf(EntityNotFoundException.class);
     }
 

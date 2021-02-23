@@ -45,19 +45,21 @@ public class ToyUpdateServiceTest extends PersistenceTest {
         toyService.updateById(toyId, updateToyRequestBody);
         Toy updatedToy = toyRepository.findById(toyId).get();
 
-        Assertions.assertEquals(originalToy.getId(), updatedToy.getId());
-        Assertions.assertEquals(updateToyRequestBody.getGithubIdentifier(), updatedToy.getGithubIdentifier());
-        Assertions.assertEquals(updateToyRequestBody.getCategory(), updatedToy.getCategory().name());
-        Assertions.assertEquals(updateToyRequestBody.getDescription(), updatedToy.getDescription());
-        Assertions.assertEquals(updateToyRequestBody.getEmail(), updatedToy.getEmail());
-        Assertions.assertEquals(updateToyRequestBody.getGithubLink(), updatedToy.getGithubLink());
-        Assertions.assertEquals(updateToyRequestBody.getLogoUrl(), updatedToy.getLogoUrl());
-        Assertions.assertEquals(updateToyRequestBody.getOrganizationId(), updatedToy.getOrganizationId());
-        Assertions.assertEquals(updateToyRequestBody.getPassword(), updatedToy.getPassword());
-        Assertions.assertEquals(Period.of(updateToyRequestBody.getPeriod()), updatedToy.getPeriod());
-        Assertions.assertEquals(updateToyRequestBody.getReadme(), updatedToy.getReadme());
-        Assertions.assertEquals(updateToyRequestBody.getTitle(), updatedToy.getTitle());
-        Assertions.assertEquals(updateToyRequestBody.getServiceLink(), updatedToy.getServiceLink());
+        Assertions.assertAll(
+            () -> Assertions.assertEquals(originalToy.getId(), updatedToy.getId()),
+            () -> Assertions.assertEquals(updateToyRequestBody.getGithubIdentifier(), updatedToy.getGithubIdentifier()),
+            () -> Assertions.assertEquals(updateToyRequestBody.getCategory(), updatedToy.getCategory().name()),
+            () -> Assertions.assertEquals(updateToyRequestBody.getDescription(), updatedToy.getDescription()),
+            () -> Assertions.assertEquals(updateToyRequestBody.getEmail(), updatedToy.getEmail()),
+            () -> Assertions.assertEquals(updateToyRequestBody.getGithubLink(), updatedToy.getGithubLink()),
+            () -> Assertions.assertEquals(updateToyRequestBody.getLogoUrl(), updatedToy.getLogoUrl()),
+            () -> Assertions.assertEquals(updateToyRequestBody.getOrganizationId(), updatedToy.getOrganizationId()),
+            () -> Assertions.assertEquals(updateToyRequestBody.getPassword(), updatedToy.getPassword()),
+            () -> Assertions.assertEquals(Period.of(updateToyRequestBody.getPeriod()), updatedToy.getPeriod()),
+            () -> Assertions.assertEquals(updateToyRequestBody.getReadme(), updatedToy.getReadme()),
+            () -> Assertions.assertEquals(updateToyRequestBody.getTitle(), updatedToy.getTitle()),
+            () -> Assertions.assertEquals(updateToyRequestBody.getServiceLink(), updatedToy.getServiceLink())
+        );
     }
 
     @DisplayName("toy update 실패 테스트 - toy id 없음 오류")
