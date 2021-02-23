@@ -123,7 +123,7 @@ public class ToyUpdateServiceTest extends PersistenceTest {
 
         assertThatThrownBy(() -> {
             toyService.updateById(toyId, updateToyRequestBody);
-        }).isInstanceOf(javax.persistence.EntityNotFoundException.class);
+        }).isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("toy update 실패 테스트 - 비밀번호 오류")

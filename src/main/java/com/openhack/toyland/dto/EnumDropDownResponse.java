@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class EnumDropDownResponse {
+    // TODO: typo response
     private List<String> reposponse;
 
     public EnumDropDownResponse(List<String> reposponse) {

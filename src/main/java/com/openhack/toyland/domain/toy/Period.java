@@ -25,6 +25,6 @@ public enum Period {
         return Arrays.stream(values())
             .filter(it -> it.index.equals(index))
             .findFirst()
-            .orElseThrow(EntityNotFoundException::new);
+            .orElseThrow(IllegalArgumentException::new);
     }
 }
