@@ -2,6 +2,7 @@ package com.openhack.toyland.domain;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,25 +20,26 @@ import lombok.ToString;
 @Entity
 @ToString
 public class Maintenance extends BaseTimeEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@NotNull
-	private Long toyId;
+    @NotNull
+    @Column(name = "toy_id", unique = true)
+    private Long toyId;
 
-	private Boolean healthCheck;
+    private Boolean healthCheck;
 
-	private Long sleepDays;
+    private Long sleepDays = 0L;
 
-	private LocalDateTime active;
+    private LocalDateTime active;
 
-	@Builder
-	public Maintenance(Long id, Long toyId, Boolean healthCheck, Long sleepDays, LocalDateTime active) {
-		this.id = id;
-		this.toyId = toyId;
-		this.healthCheck = healthCheck;
-		this.sleepDays = sleepDays;
-		this.active = active;
-	}
+    @Builder
+    public Maintenance(Long id, Long toyId, Boolean healthCheck, Long sleepDays, LocalDateTime active) {
+        this.id = id;
+        this.toyId = toyId;
+        this.healthCheck = healthCheck;
+        this.sleepDays = sleepDays;
+        this.active = active;
+    }
 }

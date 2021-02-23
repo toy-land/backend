@@ -2,8 +2,6 @@ package com.openhack.toyland.domain.toy;
 
 import java.util.Arrays;
 
-import javax.persistence.EntityNotFoundException;
-
 public enum Period {
     LESS_THAN_A_DAY(0L),
     LESS_THAN_THREE_DAYS(1L),
@@ -25,6 +23,6 @@ public enum Period {
         return Arrays.stream(values())
             .filter(it -> it.index.equals(index))
             .findFirst()
-            .orElseThrow(EntityNotFoundException::new);
+            .orElseThrow(IllegalArgumentException::new);
     }
 }

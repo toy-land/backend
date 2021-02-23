@@ -1,11 +1,13 @@
 package com.openhack.toyland.service.toy;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -16,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.openhack.toyland.domain.Maintenance;
 import com.openhack.toyland.domain.MaintenanceRepository;
 import com.openhack.toyland.domain.Organization;
 import com.openhack.toyland.domain.OrganizationRepository;
@@ -30,7 +33,6 @@ import com.openhack.toyland.domain.user.ContributorRepository;
 import com.openhack.toyland.domain.user.User;
 import com.openhack.toyland.domain.user.UserRepository;
 import com.openhack.toyland.dto.SimpleToyResponse;
-import com.openhack.toyland.dto.ToyCreateRequest;
 import com.openhack.toyland.dto.ToyDetailResponse;
 import com.openhack.toyland.dto.ToyResponse;
 import com.openhack.toyland.dto.UpdateToyRequestBody;
@@ -38,11 +40,14 @@ import com.openhack.toyland.dto.UserResponse;
 import com.openhack.toyland.exception.EntityNotFoundException;
 import com.openhack.toyland.exception.InvalidRequestBodyException;
 import com.openhack.toyland.exception.UnAuthorizedEventException;
+import com.openhack.toyland.infra.ApiParser;
+import com.openhack.toyland.service.maintenance.MaintenanceService;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j(topic = "[toy service]")
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @Service
 public class ToyService {
     private final ToyRepository toyRepository;
@@ -52,6 +57,8 @@ public class ToyService {
     private final ContributorRepository contributorRepository;
     private final UserRepository userRepository;
     private final MaintenanceRepository maintenanceRepository;
+    private final MaintenanceService maintenanceService;
+    private final ApiParser apiParser;
 
     @Transactional(readOnly = true)
     public List<ToyResponse> findAll(Pageable pageable, List<Long> organizationIds, List<Long> skillIds,
@@ -127,7 +134,15 @@ public class ToyService {
 
         List<UserResponse> userResponses = fetchUserResponses(toy);
 
-        return new ToyDetailResponse(toy, organization, skillNames, userResponses);
+        Optional<Maintenance> maintenance = maintenanceRepository.findByToyId(id);
+        if (maintenance.isEmpty()) {
+            LocalDateTime active = apiParser.fetchActive(toy.getGithubLink(), toy.getCreatedDate());
+            maintenanceService.associate(active, toy.getServiceLink(), toy.getId());
+            throw new EntityNotFoundException("해당되는 maintenance가 없습니다.");
+        }
+
+        return new ToyDetailResponse(toy, organization, skillNames, userResponses, maintenance.get().getActive(),
+            maintenance.get().getHealthCheck());
     }
 
     private List<String> fetchSkillNames(Toy toy) {
@@ -168,6 +183,8 @@ public class ToyService {
             throw new InvalidRequestBodyException("github identification은 수정 불가");
         }
 
+        validateOrganization(updateToyRequestBody.getOrganizationId());
+
         Toy newToy = updateToyRequestBody.toEntity(toy.getId());
         toyRepository.save(newToy);
         techStackRepository.deleteAllByToyId(toy.getId());
@@ -199,8 +216,8 @@ public class ToyService {
         }
     }
 
-    private void validateOrganization(ToyCreateRequest request) {
-        if (!organizationRepository.existsById(request.getOrganizationId())) {
+    private void validateOrganization(Long organizationId) {
+        if (!organizationRepository.existsById(organizationId)) {
             throw new EntityNotFoundException("해당되는 소속이 없습니다.");
         }
     }

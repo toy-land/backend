@@ -19,7 +19,7 @@ public class Organization extends BaseTimeEntity {
     private Long id;
 
     // TODO: 2021/02/04 type 필드 필요 여부 
-    
+
     @NotNull
     private String name;
 

@@ -2,6 +2,7 @@ package com.openhack.toyland.dto;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,9 +10,11 @@ import com.openhack.toyland.domain.toy.Period;
 import com.openhack.toyland.domain.toy.Toy;
 import com.openhack.toyland.domain.user.User;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class UpdateToyRequestBody {

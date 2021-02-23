@@ -6,12 +6,12 @@ import lombok.Getter;
 @Getter
 public class OrganizationResponse {
 
-	private long id;
+    private long id;
 
-	private String name;
+    private String name;
 
-	public OrganizationResponse(Organization organization) {
-		this.id = organization.getId();
-		this.name = organization.getName();
-	}
+    public OrganizationResponse(Organization organization) {
+        this.id = organization.getId();
+        this.name = organization.getName();
+    }
 }

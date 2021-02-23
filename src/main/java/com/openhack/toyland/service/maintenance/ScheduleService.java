@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.openhack.toyland.domain.Maintenance;
 import com.openhack.toyland.domain.UpdatableMaintenance;
 import com.openhack.toyland.domain.toy.Toy;
@@ -13,14 +14,16 @@ import com.openhack.toyland.dto.EmailParticipant;
 import com.openhack.toyland.infra.ApiParser;
 import com.openhack.toyland.infra.MailServer;
 import com.openhack.toyland.service.toy.ToyService;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j(topic = "[Schedule]:")
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 @Service
 public class ScheduleService {
     private final MaintenanceService maintenanceService;

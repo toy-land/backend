@@ -27,16 +27,16 @@ public class ToyDetailResponse {
     private String githubLink;
     private String serviceLink;
 
-    public ToyDetailResponse(Toy toy, Organization organization, List<String> skillNames, List<UserResponse> users) {
+    public ToyDetailResponse(Toy toy, Organization organization, List<String> skillNames, List<UserResponse> users,
+        LocalDateTime active, boolean healthCheck) {
         this.id = toy.getId();
         this.title = toy.getTitle();
         this.description = toy.getDescription();
         this.readme = toy.getReadme();
         this.category = toy.getCategory().toString();
         this.logoUrl = toy.getLogoUrl();
-        // TODO: 2021/02/04 아래 두개는 하드 코딩
-        this.active = LocalDateTime.parse("2021-02-04T16:15:30");
-        this.healthCheck = true;
+        this.active = active;
+        this.healthCheck = healthCheck;
         this.contributors = users;
         this.organization = organization.getName();
         this.skills = skillNames;

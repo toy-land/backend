@@ -1,11 +1,13 @@
 package com.openhack.toyland.dto;
 
 import java.util.List;
+
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EmailRequestBody {
 
     private String senderAddress = "no_reply@toy-land.co.kr";
