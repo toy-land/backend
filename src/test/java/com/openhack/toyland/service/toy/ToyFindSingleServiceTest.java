@@ -62,7 +62,6 @@ public class ToyFindSingleServiceTest extends IntegrationTest {
 
     @DisplayName("toy findById 실패 테스트 - maintenance 없음 오류")
     @Test
-    @Transactional
     void findByIdFailedByMaintenanceNotFound() {
         maintenanceRepository.deleteByToyId(toyId);
 

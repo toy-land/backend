@@ -5,12 +5,14 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface MaintenanceRepository extends JpaRepository<Maintenance, Long> {
     boolean existsByToyId(Long toyId);
 
     Optional<Maintenance> findByToyId(Long toyId);
 
+    @Transactional
     void deleteByToyId(Long deleteByToyId);
 
     List<Maintenance> findBySleepDaysGreaterThan(Long threshold);
