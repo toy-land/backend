@@ -24,7 +24,7 @@ public class DropDownBoxControllerTest extends IntegrationTest {
             .andExpect(status().isOk())
             .andReturn();
 
-        String actualResponse = "{\n"
+        String expected = "{\n"
             + "    \"data\": [\n"
             + "        {\n"
             + "            \"id\": 1,\n"
@@ -208,7 +208,7 @@ public class DropDownBoxControllerTest extends IntegrationTest {
             + "        }\n"
             + "    ]\n"
             + "}";
-        JSONAssert.assertEquals(actualResponse, mvcResult.getResponse().getContentAsString(), true);
+        JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), true);
     }
 
     @DisplayName("drop down box 용 organization 목록 get 테스트")
@@ -220,7 +220,7 @@ public class DropDownBoxControllerTest extends IntegrationTest {
             .andExpect(status().isOk())
             .andReturn();
 
-        String actualResponse = "{\n"
+        String expected = "{\n"
             + "    \"reposponse\": [\n"
             + "        {\n"
             + "            \"id\": 1,\n"
@@ -313,7 +313,7 @@ public class DropDownBoxControllerTest extends IntegrationTest {
             + "    ]\n"
             + "}";
 
-        JSONAssert.assertEquals(actualResponse, mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8),
+        JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8),
             true);
     }
 
@@ -326,7 +326,7 @@ public class DropDownBoxControllerTest extends IntegrationTest {
             .andExpect(status().isOk())
             .andReturn();
 
-        String actualResponse = "{\n"
+        String expected = "{\n"
             + "    \"reposponse\": [\n"
             + "        \"WEB\",\n"
             + "        \"APP\",\n"
@@ -338,7 +338,7 @@ public class DropDownBoxControllerTest extends IntegrationTest {
             + "    ]\n"
             + "}";
 
-        JSONAssert.assertEquals(actualResponse, mvcResult.getResponse().getContentAsString(), true);
+        JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), true);
     }
 
     @DisplayName("drop down box 용 period 목록 get 테스트")
@@ -350,7 +350,7 @@ public class DropDownBoxControllerTest extends IntegrationTest {
             .andExpect(status().isOk())
             .andReturn();
 
-        String actualResponse = "{\n"
+        String expected = "{\n"
             + "    \"reposponse\": [\n"
             + "        \"LESS_THAN_A_DAY\",\n"
             + "        \"LESS_THAN_THREE_DAYS\",\n"
@@ -364,6 +364,6 @@ public class DropDownBoxControllerTest extends IntegrationTest {
             + "    ]\n"
             + "}";
 
-        JSONAssert.assertEquals(actualResponse, mvcResult.getResponse().getContentAsString(), true);
+        JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), true);
     }
 }
