@@ -34,7 +34,7 @@ public class ToyFindSingleServiceTest extends IntegrationTest {
 
     @DisplayName("toy findById 성공 테스트")
     @Test
-    void findByIdSuccess() {
+    void findById() {
         ToyDetailResponse toyDetailResponse = toyService.findById(toyId);
 
         Assertions.assertEquals(toyId, toyDetailResponse.getId());
@@ -42,7 +42,7 @@ public class ToyFindSingleServiceTest extends IntegrationTest {
 
     @DisplayName("toy findById 실패 테스트 - toy id 없음 오류")
     @Test
-    void findByIdFailedByToyIdOutOfBoundary() {
+    void findById_WhenInvalidToyId_ThrowException() {
 
         assertThatThrownBy(() -> {
             toyService.findById(100L);
@@ -51,7 +51,7 @@ public class ToyFindSingleServiceTest extends IntegrationTest {
 
     @DisplayName("toy findById 실패 테스트 - organization 없음 오류")
     @Test
-    void findByIdFailedByOrganizationNotFound() {
+    void findById_WhenInvalidOrganization_ThrowException() {
         ToyDetailResponse toyDetailResponse = toyService.findById(toyId);
         Organization organizations = organizationRepository.findAll().stream()
             .filter(organization -> StringUtils.equals(organization.getName(), toyDetailResponse.getOrganization()))
@@ -65,14 +65,14 @@ public class ToyFindSingleServiceTest extends IntegrationTest {
 
     @DisplayName("toy findById 실패 테스트 - maintenance 없음 오류")
     @Test
-    void findByIdFailedByMaintenanceNotFound() {
+    void findById_WhenInvalidMaintenance_ThrowException() {
         maintenanceRepository.deleteByToyId(toyId);
 
         assertThatThrownBy(() -> {
             toyService.findById(toyId);
         }).isInstanceOf(EntityNotFoundException.class);
 
-       Optional<Maintenance> maintenance = maintenanceRepository.findByToyId(toyId);
-       Assertions.assertTrue(maintenance.isPresent());
+        Optional<Maintenance> maintenance = maintenanceRepository.findByToyId(toyId);
+        Assertions.assertTrue(maintenance.isPresent());
     }
 }

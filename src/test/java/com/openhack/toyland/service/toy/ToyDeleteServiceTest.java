@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.openhack.toyland.IntegrationTest;
 import com.openhack.toyland.domain.toy.Toy;
 import com.openhack.toyland.domain.toy.ToyRepository;
-import com.openhack.toyland.dto.ToyDetailResponse;
 import com.openhack.toyland.exception.EntityNotFoundException;
 import com.openhack.toyland.exception.UnAuthorizedEventException;
 
@@ -29,7 +28,7 @@ public class ToyDeleteServiceTest extends IntegrationTest {
 
     @DisplayName("toy deleteById 성공 테스트")
     @Test
-    void deleteByIdSuccess() {
+    void deleteById() {
         toyService.deleteById(toyId, password);
         Optional<Toy> deletedToy = toyRepository.findById(toyId);
 
@@ -38,7 +37,7 @@ public class ToyDeleteServiceTest extends IntegrationTest {
 
     @DisplayName("toy deleteById 실패 테스트 - toy id 없음 오류")
     @Test
-    void deleteByIdFailedByToyIdOutOfBoundary() {
+    void deleteById_WhenInvalidToyId_ThrowException() {
 
         assertThatThrownBy(() -> {
             toyService.deleteById(100L, password);
@@ -47,7 +46,7 @@ public class ToyDeleteServiceTest extends IntegrationTest {
 
     @DisplayName("toy deleteById 실패 테스트 - 비밀번호 오류")
     @Test
-    void deleteByIdFailedByDifferentPassword() {
+    void deleteById_WhenInvalidPassword_ThrowException() {
 
         assertThatThrownBy(() -> {
             toyService.deleteById(toyId, "password");
