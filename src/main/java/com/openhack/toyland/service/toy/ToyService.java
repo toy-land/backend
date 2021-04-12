@@ -146,7 +146,7 @@ public class ToyService {
     }
 
     private List<String> fetchSkillNames(Toy toy) {
-        List<TechStack> techStacks = techStackRepository.findAllById(Collections.singletonList(toy.getId()));
+        List<TechStack> techStacks = techStackRepository.findAllByToyId(toy.getId());
         List<Skill> skills = skillRepository.findAllById(techStacks.stream()
             .map(TechStack::getSkillId)
             .collect(Collectors.toList()));
@@ -156,7 +156,7 @@ public class ToyService {
     }
 
     private List<UserResponse> fetchUserResponses(Toy toy) {
-        List<Contributor> contributors = contributorRepository.findAllById(Collections.singletonList(toy.getId()));
+        List<Contributor> contributors = contributorRepository.findAllByToyId(toy.getId());
         List<User> users = userRepository.findAllById(contributors.stream()
             .map(Contributor::getUserId)
             .collect(Collectors.toList()));
