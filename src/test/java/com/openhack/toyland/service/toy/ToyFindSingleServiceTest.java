@@ -73,6 +73,6 @@ public class ToyFindSingleServiceTest extends IntegrationTest {
         }).isInstanceOf(EntityNotFoundException.class);
 
         Optional<Maintenance> maintenance = maintenanceRepository.findByToyId(toyId);
-        Assertions.assertTrue(maintenance.isPresent());
+        Assertions.assertTrue(maintenance.isEmpty());
     }
 }
