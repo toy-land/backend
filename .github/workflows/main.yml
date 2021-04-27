@@ -35,7 +35,7 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: |
-          git update-index --chmod=+x gradlew
+          chmod +x gradlew
           gradle wrapper
         shell: bash
 
