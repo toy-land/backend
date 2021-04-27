@@ -9,7 +9,7 @@ spring:
     console:
       enabled: true
   datasource:
-    url: jdbc:mariadb://49.50.175.141:3306/toy_land_dev
+    url: jdbc:mariadb://49.50.161.45:3306/toy_land_dev
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: toytoy
