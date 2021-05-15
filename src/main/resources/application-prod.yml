@@ -17,3 +17,10 @@ app:
   api-token: ${API_TOKEN}
   access-key-id: ${ACCESS_KEY_ID}
   secret-key: ${SECRET_KEY}
+
+server:
+  port: 443
+  ssl:
+    key-store: ${SERVER_SSL_PATH}
+    key-store-type: PKCS12
+    key-store-password: ${SERVER_SSL_PASSWORD}
