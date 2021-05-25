@@ -64,10 +64,6 @@ public class ToyService {
     public List<ToyResponse> findAll(Pageable pageable, List<Long> organizationIds, List<Long> skillIds,
         List<String> category, List<String> period, List<String> search) {
 
-        if (pageable.getPageSize() < pageable.getPageNumber()) {
-            return Collections.emptyList();
-        }
-
         List<Toy> toys = toyRepository.findAll().stream()
             .filter(toy -> organizationIds == null || organizationIds.contains(toy.getOrganizationId()))
             .filter(toy -> category == null || category.contains(toy.getCategory().name()))
@@ -75,6 +71,10 @@ public class ToyService {
             .filter(toy -> isSearchable(toy.getTitle(), search) || isSearchable(toy.getDescription(), search))
             .collect(Collectors.toList()); // organization-filter, category-filter, period-filter, 검색
         List<Skill> skills = skillIds == null ? null : skillRepository.findAllById(skillIds);
+
+        if (Math.ceil(toys.size() / (double)pageable.getPageSize()) <= pageable.getPageNumber()) {
+            return Collections.emptyList();
+        }
 
         List<ToyResponse> answer = new LinkedList<>();
 
