@@ -64,6 +64,10 @@ public class ToyService {
     public List<ToyResponse> findAll(Pageable pageable, List<Long> organizationIds, List<Long> skillIds,
         List<String> category, List<String> period, List<String> search) {
 
+        if (pageable.getPageSize() < pageable.getPageNumber()) {
+            return Collections.emptyList();
+        }
+
         List<Toy> toys = toyRepository.findAll().stream()
             .filter(toy -> organizationIds == null || organizationIds.contains(toy.getOrganizationId()))
             .filter(toy -> category == null || category.contains(toy.getCategory().name()))
